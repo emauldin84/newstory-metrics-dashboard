@@ -20,11 +20,8 @@ let Dashboard = () => {
     const fetchData = (cur) => {
         axios.get(`https://api.exchangerate-api.com/v4/latest/${cur}`)
         .then(res => {
-            console.log('fetching', fetching)
             if (fetching){
-                // setMetrics(metrics.push(res.data))
                 setMetrics(metrics => [...metrics, res.data])
-                console.log('metrics',metrics)
             }
         })
         .catch(err => {

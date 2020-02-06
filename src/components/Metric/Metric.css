@@ -1,4 +1,34 @@
 .metric-container{
     border: 1px solid black;
-    color: red;
+    height: 190px;
+    overflow: scroll;
+    transition: all .2s ease-in-out;
+    background-color: #FFFFFF;
+}
+
+.metric-container:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.metric-container-active {
+    height: 400px;
+    width: 80%;
+    margin: 0 auto;
+}
+.metric-container-active:hover{
+    transform: scale(1.0);
+}
+.background-on{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, .3)
+}
+.background-off{
+    display: hidden;
 }
