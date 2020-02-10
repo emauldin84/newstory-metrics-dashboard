@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import './Dashboard.css';
 import Metric from '../Metric/Metric'
+import Modal from '../Modal/Modal'
 
 let Dashboard = () => {
     const [metrics, setMetrics] = useState([])
@@ -33,14 +34,16 @@ let Dashboard = () => {
 
     const handleMetricClick = (e) => {
         console.log(e.target.id)
-        setSelectedMetric(e.target.id)
-        setBackgroundClass('background-on')
+        let selected = metrics.filter(metric => {
+            return metric.base === e.target.id
+        })
+        console.log('selected', selected)
+        setSelectedMetric(selected)
+
     }
 
     const handleBackgroundClick = () => {
-        setBackgroundClass('background-off')
         setSelectedMetric(null)
-
     }
     
     let metricsDisplay = metrics ? metrics.map(m => {
@@ -51,11 +54,14 @@ let Dashboard = () => {
                     handleMetricClick={handleMetricClick}/>
     }) : null
 
+    let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
+
     return (
         <div className="dashboard-container" >
-            <div className={backgroundClass} onClick={handleBackgroundClick}></div>
+            <div className={backgroundClass}></div>
             <p>Metrics</p>
             {metricsDisplay}
+            {modal}
         </div>
     );
 }
