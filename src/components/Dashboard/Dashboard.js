@@ -9,7 +9,6 @@ let Dashboard = () => {
     const [metrics, setMetrics] = useState([])
     const [fetching, setFetching] = useState(false)
     const [selectedMetric, setSelectedMetric] = useState(null)
-    const [backgroundClass, setBackgroundClass] = useState('background-off')
     let currencies = ['USD', 'EUR', 'GBP', 'JPY', 'CNY', 'TRY']
 
     useEffect(() => {
@@ -55,8 +54,7 @@ let Dashboard = () => {
 
     return (
         <div className="dashboard-container" >
-            <div className={backgroundClass}></div>
-            <p>Metrics</p>
+            <p>World Currencies</p>
             {metricsDisplay}
             {modal}
         </div>
