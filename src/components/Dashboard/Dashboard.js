@@ -33,13 +33,10 @@ let Dashboard = () => {
     }
 
     const handleMetricClick = (e) => {
-        console.log(e.target.id)
         let selected = metrics.filter(metric => {
             return metric.base === e.target.id
         })
-        console.log('selected', selected)
-        setSelectedMetric(selected)
-
+        setSelectedMetric(...selected)
     }
 
     const handleBackgroundClick = () => {
