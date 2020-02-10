@@ -23,7 +23,7 @@ let Metric = (props) => {
                 <h3>{props.metrics.base}</h3>
                 <p>{props.metrics.date}</p>
                 <p>Last updated: {new Date(props.metrics.time_last_updated).toLocaleTimeString("en-US")}</p>
-                {ratesDisplay}
+                <p>Rates: </p> {ratesDisplay}
             </div>
         </div>
     )
