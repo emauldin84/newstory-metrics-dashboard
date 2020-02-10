@@ -24,9 +24,11 @@
     margin: 0 auto;
     z-index: 10;
     position: fixed;
+    left: 10%;
+    top: 25%;
+    /* transform: translate(-50%, -50%); */
     border: 1px solid #ccc;
     box-shadow: 1px 1px 5px black;
-
     padding: 16px;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
