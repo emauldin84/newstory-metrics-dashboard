@@ -32,6 +32,7 @@ let Dashboard = () => {
     }
 
     const handleMetricClick = (e) => {
+        console.log(e.target.id)
         setSelectedMetric(e.target.id)
         setBackgroundClass('background-on')
     }
