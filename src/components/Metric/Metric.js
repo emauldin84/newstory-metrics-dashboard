@@ -3,8 +3,8 @@ import React, {useState} from 'react'
 import './Metric.css'
 
 let Metric = (props) => {
-    const [metricClass, setMetricClass] = useState('metric-container')
-    const [backgroundClass, setBackgroundClass] = useState('background-off')
+    // const [metricClass, setMetricClass] = useState('metric-container')
+
     let rates = props.metrics.rates
     let ratesDisplay = Object.keys(rates).map(rate => {
         return <div key={rate}>
@@ -12,25 +12,20 @@ let Metric = (props) => {
                 </div>
     })
 
-    const handleMetricClick = () => {
-        setMetricClass('metric-container metric-container-active')
-        setBackgroundClass('background-on')
-    }
-
-    const handleBackgroundClick = () => {
-        setMetricClass('metric-container')
-        // setBackgroundClass('background-off')
+    let metricClass = 'metric-container'
+    if (props.selectedMetric === props.metrics.base) {
+        metricClass = 'metric-container metric-container-active'
     }
 
     return (
-        <div className={backgroundClass} onClick={handleBackgroundClick}>
-            <div className={metricClass} onClick={handleMetricClick}>
+        // <div className='container'>
+            <div id = {props.metrics.base} className={metricClass} onClick={props.handleMetricClick}>
                 <h3>{props.metrics.base}</h3>
                 <p>{props.metrics.date}</p>
                 <p>Last updated: {new Date(props.metrics.time_last_updated).toLocaleTimeString("en-US")}</p>
                 {ratesDisplay}
             </div>
-        </div>
+        // </div>
     )
 }
 

@@ -7,6 +7,8 @@ import Metric from '../Metric/Metric'
 let Dashboard = () => {
     const [metrics, setMetrics] = useState([])
     const [fetching, setFetching] = useState(false)
+    const [selectedMetric, setSelectedMetric] = useState(null)
+    const [backgroundClass, setBackgroundClass] = useState('background-off')
     let currencies = ['USD', 'EUR', 'GBP', 'JPY', 'CNY', 'TRY']
 
     useEffect(() => {
@@ -28,13 +30,29 @@ let Dashboard = () => {
             console.log(err)
         })
     }
+
+    const handleMetricClick = (e) => {
+        setSelectedMetric(e.target.id)
+        setBackgroundClass('background-on')
+    }
+
+    const handleBackgroundClick = () => {
+        setBackgroundClass('background-off')
+        setSelectedMetric(null)
+
+    }
     
     let metricsDisplay = metrics ? metrics.map(m => {
-        return <Metric key={m.base}metrics={m}/>
+        return <Metric 
+                    key={m.base} 
+                    metrics={m}
+                    selectedMetric={selectedMetric} 
+                    handleMetricClick={handleMetricClick}/>
     }) : null
 
     return (
-        <div className="dashboard-container">
+        <div className="dashboard-container" >
+            <div className={backgroundClass} onClick={handleBackgroundClick}></div>
             <p>Metrics</p>
             {metricsDisplay}
         </div>
