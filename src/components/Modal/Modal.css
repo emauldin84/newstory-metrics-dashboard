@@ -8,7 +8,7 @@
     border: 1px solid #ccc;
     box-shadow: 1px 1px 10px black;
     padding: 16px;
-    left: 15%;
+    left: 5%;
     top: 25%;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
@@ -17,8 +17,8 @@
 
 @media (min-width: 600px) {
     .modal {
-        width: 500px;
-        left: calc(50% - 250px);
+        width: 540px;
+        left: calc(50% - 270px);
     }
 }
 
@@ -36,5 +36,5 @@
     text-align: center;
     border-bottom: 3px solid #00BAE0;
     padding-bottom: 10px;
-    font-weight: 400;
+    font-weight: 700;
 }
