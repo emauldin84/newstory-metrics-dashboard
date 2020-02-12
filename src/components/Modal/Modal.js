@@ -13,8 +13,8 @@ let Modal = (props) => {
         <div className='container'>
             <div className='backdrop' onClick={props.handleBackgroundClick}></div>
             <div className='modal'>
-                <h3 className='title'>{props.selectedMetric.base}</h3>
-                <p id={props.selectedMetric.base}>Last updated: {props.selectedMetric.date} | {new Date(props.selectedMetric.time_last_updated).toLocaleTimeString("en-US")}</p>
+                <h3 className='modal-title'>{props.selectedMetric.base}</h3>
+                <p className='last-updated'id={props.selectedMetric.base}>Last updated: {props.selectedMetric.date} | {new Date(props.selectedMetric.time_last_updated).toLocaleTimeString("en-US")}</p>
                 {ratesDisplay}
             </div>
         </div>

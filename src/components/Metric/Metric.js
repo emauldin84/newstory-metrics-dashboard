@@ -7,7 +7,7 @@ let Metric = (props) => {
     return (
         <div className='container'>
             <div id={props.metrics.base} className='metric-container' onClick={props.handleMetricClick}>
-                <h3 id={props.metrics.base}>{props.metrics.base}</h3>
+                <h3 className='title' id={props.metrics.base}>{props.metrics.base}</h3>
             </div>
         </div>
     )
