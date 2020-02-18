@@ -25,3 +25,16 @@
     margin-top: 20px;
     margin-bottom: 0;
 }
+.logo-container {
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    border-bottom: 1px solid rgb(147, 147, 147);
+    width: 35vmin;
+}
+.logo {
+    filter: invert(1);
+    height: 3vmin;
+    width: auto;
+    align-self: flex-start;
+}

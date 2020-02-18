@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
 
 import './Dashboard.css';
 import Metric from '../Metric/Metric'
@@ -7,10 +7,10 @@ import ComparisonFrequency from '../ComparisonFrequency/ComparisonFrequency'
 import Modal from '../Modal/Modal'
 
 let Dashboard = () => {
-    const [metrics, setMetrics] = useState([])
+    // const [metrics, setMetrics] = useState([])
     const [frequency, setFrequency] = useState('lastMonth')
     // const [fetching, setFetching] = useState(false)
-    const [selectedMetric, setSelectedMetric] = useState(null)
+    // const [selectedMetric, setSelectedMetric] = useState(null)
     let nsMetrics = {
         users: {
             active: {
@@ -105,16 +105,16 @@ let Dashboard = () => {
     //     })
     // }
 
-    const handleMetricClick = (e) => {
-        let selected = metrics.filter(metric => {
-            return metric.base === e.target.id
-        })
-        setSelectedMetric(...selected)
-    }
+    // const handleMetricClick = (e) => {
+    //     let selected = metrics.filter(metric => {
+    //         return metric.base === e.target.id
+    //     })
+    //     setSelectedMetric(...selected)
+    // }
 
-    const handleBackgroundClick = () => {
-        setSelectedMetric(null)
-    }
+    // const handleBackgroundClick = () => {
+    //     setSelectedMetric(null)
+    // }
     const handleFrequencyClick = (freq) => {
         setFrequency(freq)
     }
@@ -125,14 +125,18 @@ let Dashboard = () => {
                     metricsData={nsMetrics[m]}
                     metrics={m}
                     frequency={frequency}
-                    selectedMetric={selectedMetric} 
-                    handleMetricClick={handleMetricClick}/>
+                    // selectedMetric={selectedMetric} 
+                    // handleMetricClick={handleMetricClick}
+                    />
     })
 
-    let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
+    // let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
 
     return (
         <div className="dashboard-container" >
+            <div className='logo-container'>
+                <img className='logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png'/>
+            </div>
             <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency}/>
             <div className='title-display'>
                 <p className='titles' id='title-metric'><b>Metric</b></p>
@@ -140,7 +144,7 @@ let Dashboard = () => {
                 <p className='titles' id='title-comparison'><b>Comparison</b></p>
             </div>
             {metricsDisplay}
-            {modal}
+            {/* {modal} */}
         </div>
     );
 }
