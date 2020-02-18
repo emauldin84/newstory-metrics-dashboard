@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/newstory-metrics-dashboard/static/css/main.ad685992.chunk.css",
+    "main.js": "/newstory-metrics-dashboard/static/js/main.a2192ae0.chunk.js",
+    "main.js.map": "/newstory-metrics-dashboard/static/js/main.a2192ae0.chunk.js.map",
+    "runtime-main.js": "/newstory-metrics-dashboard/static/js/runtime-main.e845322e.js",
+    "runtime-main.js.map": "/newstory-metrics-dashboard/static/js/runtime-main.e845322e.js.map",
+    "static/js/2.68549f7b.chunk.js": "/newstory-metrics-dashboard/static/js/2.68549f7b.chunk.js",
+    "static/js/2.68549f7b.chunk.js.map": "/newstory-metrics-dashboard/static/js/2.68549f7b.chunk.js.map",
+    "index.html": "/newstory-metrics-dashboard/index.html",
+    "precache-manifest.26092a186e1c426e2ec8ecdb2df58611.js": "/newstory-metrics-dashboard/precache-manifest.26092a186e1c426e2ec8ecdb2df58611.js",
+    "service-worker.js": "/newstory-metrics-dashboard/service-worker.js",
+    "static/css/main.ad685992.chunk.css.map": "/newstory-metrics-dashboard/static/css/main.ad685992.chunk.css.map",
+    "static/js/2.68549f7b.chunk.js.LICENSE.txt": "/newstory-metrics-dashboard/static/js/2.68549f7b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e845322e.js",
+    "static/js/2.68549f7b.chunk.js",
+    "static/css/main.ad685992.chunk.css",
+    "static/js/main.a2192ae0.chunk.js"
+  ]
+}
