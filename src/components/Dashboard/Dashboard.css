@@ -16,8 +16,10 @@
     margin-left: auto;
 }
 #title-comparison{
+    text-align: right;
     margin-left: 20px;
     margin-right: 10px;
+    width: 13vmin;
 }
 .titles{
     margin-top: 20px;

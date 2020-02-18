@@ -11,23 +11,73 @@ let Dashboard = () => {
     const [selectedMetric, setSelectedMetric] = useState(null)
     let nsMetrics = {
         users: {
-            active: 39,
-            new: 8,
-            total: 812,
+            active: {
+                current: 39,
+                lastMonth: 36,
+                lastQuarter: 30,
+                lastYear: 10,
+            },
+            new: {
+                current: 8,
+                lastMonth: 7,
+                lastQuarter: 12,
+                lastYear: 5,
+            },
+            total: {
+                current: 812,
+                lastMonth: 804,
+                lastQuarter: 797,
+                lastYear: 785,
+            },
         },
         organizations: {
-            active: 39,
-            new: 8,
-            total: 812,
+            active: {
+                current: 39,
+                lastMonth: 36,
+                lastQuarter: 30,
+                lastYear: 10,
+            },
+            new: {
+                current: 8,
+                lastMonth: 7,
+                lastQuarter: 12,
+                lastYear: 5,
+            },
+            total: {
+                current: 812,
+                lastMonth: 804,
+                lastQuarter: 797,
+                lastYear: 785,
+            },
         },
         recipients: {
-            new: 3,
-            total: 483,
+            new: {
+                current: 3,
+                lastMonth: 4,
+                lastQuarter: 1,
+                lastYear: 7,
+            },
+            total: {
+                current: 483,
+                lastMonth: 475,
+                lastQuarter: 400,
+                lastYear: 200,
+            },
         },
         submissions: {
-            new: 3,
-            total: 483,
-        }
+            new: {
+                current: 3,
+                lastMonth: 4,
+                lastQuarter: 1,
+                lastYear: 7,
+            },
+            total: {
+                current: 483,
+                lastMonth: 413,
+                lastQuarter: 303,
+                lastYear: 116,
+            },
+        },
     }
 
     
