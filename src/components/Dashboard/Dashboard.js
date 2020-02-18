@@ -9,7 +9,28 @@ let Dashboard = () => {
     const [metrics, setMetrics] = useState([])
     const [fetching, setFetching] = useState(false)
     const [selectedMetric, setSelectedMetric] = useState(null)
-    let currencies = ['USD', 'EUR', 'GBP', 'JPY', 'CNY', 'TRY']
+    let nsMetrics = {
+        users: {
+            activeUsers: 39,
+            newUsers: 8,
+            totalUsers: 812,
+        },
+        organizaions: {
+            activeOrganizations: 39,
+            newOrganizaions: 8,
+            totalOrganizaions: 812,
+        },
+        recipients: {
+            newRecipients: 3,
+            totalRecipients: 483,
+        },
+        submissions: {
+            newSubmissions: 3,
+            totalSubmissions: 483,
+        }
+    }
+
+    
 
     useEffect(() => {
         setFetching(true)
