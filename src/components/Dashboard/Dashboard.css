@@ -38,3 +38,6 @@
     width: auto;
     align-self: flex-start;
 }
+.logo:hover {
+    cursor: pointer;
+}

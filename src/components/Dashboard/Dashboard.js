@@ -9,6 +9,7 @@ import Modal from '../Modal/Modal'
 let Dashboard = () => {
     // const [metrics, setMetrics] = useState([])
     const [frequency, setFrequency] = useState('lastMonth')
+    const [refresh, setRefresh] = useState(true)
     // const [fetching, setFetching] = useState(false)
     // const [selectedMetric, setSelectedMetric] = useState(null)
     let nsMetrics = {
@@ -118,6 +119,10 @@ let Dashboard = () => {
     const handleFrequencyClick = (freq) => {
         setFrequency(freq)
     }
+    const handleRefresh = () => {
+        setRefresh(!refresh)
+        console.log('refreshing page!')
+    }
     
     let metricsDisplay = Object.keys(nsMetrics).map(m => {
         return <Metric 
@@ -135,7 +140,7 @@ let Dashboard = () => {
     return (
         <div className="dashboard-container" >
             <div className='logo-container'>
-                <img className='logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png'/>
+                <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png' onClick={handleRefresh}/>
             </div>
             <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency}/>
             <div className='title-display'>
