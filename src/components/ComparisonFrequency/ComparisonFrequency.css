@@ -12,6 +12,7 @@
 .frequency {
     color: #00BAE0;
     margin-left: 15px;
+    text-decoration: underline;
 }
 .frequency:hover {
     cursor: pointer;
@@ -20,5 +21,8 @@
 }
 .year {
     margin-right: 10px;
-    text-decoration: underline;
+}
+.active {
+    text-decoration: none;
+    color: #4A4A4A;
 }
