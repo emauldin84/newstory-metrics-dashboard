@@ -124,6 +124,7 @@ let Dashboard = () => {
                     key={m} 
                     metricsData={nsMetrics[m]}
                     metrics={m}
+                    frequency={frequency}
                     selectedMetric={selectedMetric} 
                     handleMetricClick={handleMetricClick}/>
     })
@@ -134,9 +135,9 @@ let Dashboard = () => {
         <div className="dashboard-container" >
             <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency}/>
             <div className='title-display'>
-                <p className='titles' id='title-metric'>Metric</p>
-                <p className='titles' id='title-value'>Value</p>
-                <p className='titles' id='title-comparison'>Comparison</p>
+                <p className='titles' id='title-metric'><b>Metric</b></p>
+                <p className='titles' id='title-value'><b>Value</b></p>
+                <p className='titles' id='title-comparison'><b>Comparison</b></p>
             </div>
             {metricsDisplay}
             {modal}

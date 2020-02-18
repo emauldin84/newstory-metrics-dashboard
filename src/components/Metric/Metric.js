@@ -4,10 +4,10 @@ import './Metric.css'
 
 let Metric = (props) => {
     let metricsDataDisplay = Object.keys(props.metricsData).map(key => {
-        let comparison = props.metricsData[key].current - props.metricsData[key].lastMonth
+        let comparison = props.metricsData[key].current - props.metricsData[key][props.frequency]
         let compClass = comparison > 0 ? 'comparison positive' : comparison < 0 ? 'comparison negative' : 'comparison'
         let compArrow = comparison > 0 ? '↑' : comparison < 0 ? '↓' : null
-        let compPerc = ((Math.abs(comparison) / props.metricsData[key].current) * 100).toFixed(2)
+        let compPerc = ((Math.abs(comparison) / props.metricsData[key][props.frequency]) * 100).toFixed(2)
 
         return  <div key={key}className='metric-inline-display'>
                     <div className='metric-title-container'>
