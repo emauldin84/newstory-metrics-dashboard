@@ -15,7 +15,7 @@ let Dashboard = () => {
             new: 8,
             total: 812,
         },
-        organizaions: {
+        organizations: {
             active: 39,
             new: 8,
             total: 812,
@@ -77,7 +77,11 @@ let Dashboard = () => {
 
     return (
         <div className="dashboard-container" >
-            <p>Metric</p>
+            <div className='title-display'>
+                <p className='titles' id='title-metric'>Metric</p>
+                <p className='titles' id='title-value'>Value</p>
+                <p className='titles' id='title-comparison'>Comparison</p>
+            </div>
             {metricsDisplay}
             {modal}
         </div>

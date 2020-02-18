@@ -2,3 +2,24 @@
     width: 80%;
     min-height: 100%;
 }
+.title-display{
+    display: flex;
+    flex-direction: row;
+    font-size: calc(2px + 2vmin);
+    /* height: 20px; */
+    align-items: center;
+}
+#title-metric{
+    margin-left: 10px;
+}
+#title-value{
+    margin-left: auto;
+}
+#title-comparison{
+    margin-left: 20px;
+    margin-right: 10px;
+}
+.titles{
+    margin-top: 20px;
+    margin-bottom: 0;
+}
