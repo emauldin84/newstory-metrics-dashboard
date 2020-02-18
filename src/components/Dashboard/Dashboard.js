@@ -7,50 +7,51 @@ import Modal from '../Modal/Modal'
 
 let Dashboard = () => {
     const [metrics, setMetrics] = useState([])
-    const [fetching, setFetching] = useState(false)
+    // const [fetching, setFetching] = useState(false)
     const [selectedMetric, setSelectedMetric] = useState(null)
     let nsMetrics = {
         users: {
-            activeUsers: 39,
-            newUsers: 8,
-            totalUsers: 812,
+            active: 39,
+            new: 8,
+            total: 812,
         },
         organizaions: {
-            activeOrganizations: 39,
-            newOrganizaions: 8,
-            totalOrganizaions: 812,
+            active: 39,
+            new: 8,
+            total: 812,
         },
         recipients: {
-            newRecipients: 3,
-            totalRecipients: 483,
+            new: 3,
+            total: 483,
         },
         submissions: {
-            newSubmissions: 3,
-            totalSubmissions: 483,
+            new: 3,
+            total: 483,
         }
     }
 
     
+    // NOT NECESSARY UNTIL WE RECEIVE API INFO FROM MORGAN
 
-    useEffect(() => {
-        setFetching(true)
-        currencies.forEach(currency => {
-            fetchData(currency)
-        })
-        return () => setFetching(false)
-    },[fetching])
+    // useEffect(() => {
+    //     setFetching(true)
+    //     currencies.forEach(currency => {
+    //         fetchData(currency)
+    //     })
+    //     return () => setFetching(false)
+    // },[fetching])
     
-    const fetchData = (cur) => {
-        axios.get(`https://api.exchangerate-api.com/v4/latest/${cur}`)
-        .then(res => {
-            if (fetching){
-                setMetrics(metrics => [...metrics, res.data])
-            }
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
+    // const fetchData = (cur) => {
+    //     axios.get(`https://api.exchangerate-api.com/v4/latest/${cur}`)
+    //     .then(res => {
+    //         if (fetching){
+    //             setMetrics(metrics => [...metrics, res.data])
+    //         }
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+    // }
 
     const handleMetricClick = (e) => {
         let selected = metrics.filter(metric => {
@@ -63,19 +64,20 @@ let Dashboard = () => {
         setSelectedMetric(null)
     }
     
-    let metricsDisplay = metrics ? metrics.map(m => {
+    let metricsDisplay = Object.keys(nsMetrics).map(m => {
         return <Metric 
-                    key={m.base} 
+                    key={m} 
+                    metricsData={nsMetrics[m]}
                     metrics={m}
                     selectedMetric={selectedMetric} 
                     handleMetricClick={handleMetricClick}/>
-    }) : null
+    })
 
     let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
 
     return (
         <div className="dashboard-container" >
-            <p>World Currencies</p>
+            <p>Metric</p>
             {metricsDisplay}
             {modal}
         </div>
