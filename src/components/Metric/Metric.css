@@ -3,22 +3,54 @@
 }
 
 .metric-container{
-    border: 3px solid #00BAE0;
-    border-radius: 2px;
+    
+    border-bottom: 1px solid #00BAE0;
     height: auto;
     transition: all .2s ease-in-out;
     background-color: #FFFFFF;
-    margin-bottom: 5px;
+}
+.metric-inline-display{
+    display: flex;
+    flex-direction: row;
+    height: calc(40px + 2vmin);
+    align-items: center;
+}
+.metric-data-container{
+    margin-left: auto;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+}
+.submissions-container {
+    border-bottom: none;
 }
 
-.metric-container:hover {
+/* .metric-container:hover {
     color: #FFFFFF;
     background: #00BAE0;
     z-index: 10;
-    cursor: pointer;
-
-}
+    cursor: pointer;    
+} */
 
 .title{
     font-weight: 700;
+}
+
+.metric-title-container{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+}
+.current{
+    margin-right: 20px;
+}
+.comparison  {
+    width: 20vmin;
+    text-align: right;
+}
+.positive {
+    color: green;
+}
+.negative {
+    color: red;
 }

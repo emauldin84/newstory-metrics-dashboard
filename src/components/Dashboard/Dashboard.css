@@ -1,4 +1,43 @@
 .dashboard-container {
-    width: 80%;
+    width: 95%;
     min-height: 100%;
+}
+.title-display{
+    display: flex;
+    flex-direction: row;
+    font-size: calc(2px + 2vmin);
+    /* height: 20px; */
+    align-items: center;
+}
+#title-metric{
+    margin-left: 10px;
+}
+#title-value{
+    margin-left: auto;
+}
+#title-comparison{
+    text-align: right;
+    margin-left: 20px;
+    margin-right: 10px;
+    width: 20vmin;
+}
+.titles{
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+.logo-container {
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    border-bottom: 1px solid rgb(147, 147, 147);
+    width: 35vmin;
+}
+.logo {
+    filter: invert(1);
+    height: 3vmin;
+    width: auto;
+    align-self: flex-start;
+}
+.logo:hover {
+    cursor: pointer;
 }

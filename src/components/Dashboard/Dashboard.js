@@ -1,62 +1,155 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
 
 import './Dashboard.css';
 import Metric from '../Metric/Metric'
+import ComparisonFrequency from '../ComparisonFrequency/ComparisonFrequency'
 import Modal from '../Modal/Modal'
 
 let Dashboard = () => {
-    const [metrics, setMetrics] = useState([])
-    const [fetching, setFetching] = useState(false)
-    const [selectedMetric, setSelectedMetric] = useState(null)
-    let currencies = ['USD', 'EUR', 'GBP', 'JPY', 'CNY', 'TRY']
+    // const [metrics, setMetrics] = useState([])
+    const [frequency, setFrequency] = useState('lastMonth')
+    const [refresh, setRefresh] = useState(true)
+    // const [fetching, setFetching] = useState(false)
+    // const [selectedMetric, setSelectedMetric] = useState(null)
+    let nsMetrics = {
+        users: {
+            active: {
+                current: 39,
+                lastMonth: 39,
+                lastQuarter: 30,
+                lastYear: 10,
+            },
+            new: {
+                current: 8,
+                lastMonth: 7,
+                lastQuarter: 12,
+                lastYear: 5,
+            },
+            total: {
+                current: 812,
+                lastMonth: 804,
+                lastQuarter: 797,
+                lastYear: 785,
+            },
+        },
+        organizations: {
+            active: {
+                current: 39,
+                lastMonth: 36,
+                lastQuarter: 30,
+                lastYear: 10,
+            },
+            new: {
+                current: 8,
+                lastMonth: 7,
+                lastQuarter: 12,
+                lastYear: 5,
+            },
+            total: {
+                current: 812,
+                lastMonth: 804,
+                lastQuarter: 797,
+                lastYear: 785,
+            },
+        },
+        recipients: {
+            new: {
+                current: 3,
+                lastMonth: 4,
+                lastQuarter: 1,
+                lastYear: 7,
+            },
+            total: {
+                current: 483,
+                lastMonth: 475,
+                lastQuarter: 400,
+                lastYear: 200,
+            },
+        },
+        submissions: {
+            new: {
+                current: 3,
+                lastMonth: 4,
+                lastQuarter: 1,
+                lastYear: 7,
+            },
+            total: {
+                current: 483,
+                lastMonth: 413,
+                lastQuarter: 303,
+                lastYear: 116,
+            },
+        },
+    }
 
-    useEffect(() => {
-        setFetching(true)
-        currencies.forEach(currency => {
-            fetchData(currency)
-        })
-        return () => setFetching(false)
-    },[fetching])
     
-    const fetchData = (cur) => {
-        axios.get(`https://api.exchangerate-api.com/v4/latest/${cur}`)
-        .then(res => {
-            if (fetching){
-                setMetrics(metrics => [...metrics, res.data])
-            }
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
+    // NOT NECESSARY UNTIL WE RECEIVE API INFO FROM MORGAN
 
-    const handleMetricClick = (e) => {
-        let selected = metrics.filter(metric => {
-            return metric.base === e.target.id
-        })
-        setSelectedMetric(...selected)
-    }
+    // useEffect(() => {
+    //     setFetching(true)
+    //     currencies.forEach(currency => {
+    //         fetchData(currency)
+    //     })
+    //     return () => setFetching(false)
+    // },[fetching])
+    
+    // const fetchData = (cur) => {
+    //     axios.get(`https://api.exchangerate-api.com/v4/latest/${cur}`)
+    //     .then(res => {
+    //         if (fetching){
+    //             setMetrics(metrics => [...metrics, res.data])
+    //         }
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+    // }
 
-    const handleBackgroundClick = () => {
-        setSelectedMetric(null)
+    // const handleMetricClick = (e) => {
+    //     let selected = metrics.filter(metric => {
+    //         return metric.base === e.target.id
+    //     })
+    //     setSelectedMetric(...selected)
+    // }
+
+    // const handleBackgroundClick = () => {
+    //     setSelectedMetric(null)
+    // }
+    const handleFrequencyClick = (freq) => {
+        setFrequency(freq)
+    }
+    const handleRefresh = () => {
+        setRefresh(!refresh)
+        console.log('refreshing page!')
     }
     
-    let metricsDisplay = metrics ? metrics.map(m => {
+    let metricsDisplay = Object.keys(nsMetrics).map(m => {
         return <Metric 
-                    key={m.base} 
+                    key={m} 
+                    metricsData={nsMetrics[m]}
                     metrics={m}
-                    selectedMetric={selectedMetric} 
-                    handleMetricClick={handleMetricClick}/>
-    }) : null
+                    frequency={frequency}
+                    // selectedMetric={selectedMetric} 
+                    // handleMetricClick={handleMetricClick}
+                    />
+    })
 
-    let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
+    // let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
 
     return (
         <div className="dashboard-container" >
-            <p>World Currencies</p>
+            <div className='logo-container'>
+                <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png' onClick={handleRefresh}/>
+            </div>
+            <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency}/>
+            <div className='title-display'>
+                <p className='titles' id='title-metric'><b>Metric</b></p>
+                <p className='titles' id='title-value'><b>Value</b></p>
+                <p className='titles' id='title-comparison'><b>Comparison</b></p>
+            </div>
             {metricsDisplay}
-            {modal}
+            {/* {modal} */}
         </div>
     );
 }
