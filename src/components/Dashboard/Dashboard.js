@@ -3,17 +3,19 @@ import axios from 'axios'
 
 import './Dashboard.css';
 import Metric from '../Metric/Metric'
+import ComparisonFrequency from '../ComparisonFrequency/ComparisonFrequency'
 import Modal from '../Modal/Modal'
 
 let Dashboard = () => {
     const [metrics, setMetrics] = useState([])
+    const [frequency, setFrequency] = useState('lastMonth')
     // const [fetching, setFetching] = useState(false)
     const [selectedMetric, setSelectedMetric] = useState(null)
     let nsMetrics = {
         users: {
             active: {
                 current: 39,
-                lastMonth: 36,
+                lastMonth: 39,
                 lastQuarter: 30,
                 lastYear: 10,
             },
@@ -113,6 +115,9 @@ let Dashboard = () => {
     const handleBackgroundClick = () => {
         setSelectedMetric(null)
     }
+    const handleFrequencyClick = (freq) => {
+        setFrequency(freq)
+    }
     
     let metricsDisplay = Object.keys(nsMetrics).map(m => {
         return <Metric 
@@ -127,6 +132,7 @@ let Dashboard = () => {
 
     return (
         <div className="dashboard-container" >
+            <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency}/>
             <div className='title-display'>
                 <p className='titles' id='title-metric'>Metric</p>
                 <p className='titles' id='title-value'>Value</p>

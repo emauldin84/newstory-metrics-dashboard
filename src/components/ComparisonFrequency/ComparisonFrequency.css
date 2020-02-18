@@ -1,0 +1,24 @@
+.comparison-container, .frequency-selector {
+    display: flex;
+    flex-direction: row;
+}
+.frequency-title {
+    margin-left: 10px;
+}
+.frequency-selector{
+    margin-left: auto;
+}
+
+.frequency {
+    color: #00BAE0;
+    margin-left: 15px;
+}
+.frequency:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: #4A4A4A;
+}
+.year {
+    margin-right: 10px;
+    text-decoration: underline;
+}
