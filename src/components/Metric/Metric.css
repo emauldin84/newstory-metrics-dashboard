@@ -12,8 +12,12 @@
 .metric-inline-display{
     display: flex;
     flex-direction: row;
-    height: calc(40px + 2vmin);
+    height: calc(35px + 2vmin);
     align-items: center;
+}
+.metric-inline-display p {
+    /* margin-top: 5px;
+    margin-bottom: 5px; */
 }
 .metric-data-container{
     margin-left: auto;

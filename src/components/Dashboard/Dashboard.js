@@ -16,16 +16,14 @@ let Dashboard = () => {
     let nsMetrics = {
         users: {
             active: {
-                current: 39,
                 currentMonth: 39,
                 currentQuarter: 55,
-                currentYear: 100,
+                currentYear: 92,
                 lastMonth: 39,
                 lastQuarter: 50,
                 lastYear: 90,
             },
             new: {
-                current: 8,
                 currentMonth: 8,
                 currentQuarter: 20,
                 currentYear: 100,
@@ -34,7 +32,6 @@ let Dashboard = () => {
                 lastYear: 40,
             },
             total: {
-                current: 812,
                 currentMonth: 812,
                 currentQuarter: 812,
                 currentYear: 812,
@@ -45,16 +42,14 @@ let Dashboard = () => {
         },
         organizations: {
             active: {
-                current: 39,
                 currentMonth: 39,
                 currentQuarter: 55,
-                currentYear: 100,
+                currentYear: 92,
                 lastMonth: 32,
                 lastQuarter: 50,
                 lastYear: 90,
             },
             new: {
-                current: 8,
                 currentMonth: 8,
                 currentQuarter: 20,
                 currentYear: 100,
@@ -63,7 +58,6 @@ let Dashboard = () => {
                 lastYear: 40,
             },
             total: {
-                current: 812,
                 currentMonth: 812,
                 currentQuarter: 812,
                 currentYear: 812,
@@ -74,7 +68,6 @@ let Dashboard = () => {
         },
         recipients: {
             new: {
-                current: 3,
                 currentMonth: 3,
                 currentQuarter: 4,
                 currentYear: 5,
@@ -83,7 +76,6 @@ let Dashboard = () => {
                 lastYear: 7,
             },
             total: {
-                current: 483,
                 currentMonth: 483,
                 currentQuarter: 483,
                 currentYear: 483,
@@ -94,7 +86,6 @@ let Dashboard = () => {
         },
         submissions: {
             new: {
-                current: 3,
                 currentMonth: 3,
                 currentQuarter: 4,
                 currentYear: 5,
@@ -103,7 +94,6 @@ let Dashboard = () => {
                 lastYear: 7,
             },
             total: {
-                current: 483,
                 currentMonth: 483,
                 currentQuarter: 483,
                 currentYear: 483,
