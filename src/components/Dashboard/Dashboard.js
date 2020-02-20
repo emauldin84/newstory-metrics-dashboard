@@ -142,7 +142,6 @@ let Dashboard = () => {
     }
     const handleRefresh = () => {
         setRefresh(!refresh)
-        console.log('refreshing page!')
     }
     
     let metricsDisplay = Object.keys(nsMetrics).map(m => {
