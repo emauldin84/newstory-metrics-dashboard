@@ -15,10 +15,7 @@
     height: calc(35px + 2vmin);
     align-items: center;
 }
-.metric-inline-display p {
-    /* margin-top: 5px;
-    margin-bottom: 5px; */
-}
+
 .metric-data-container{
     margin-left: auto;
     margin-right: 10px;
@@ -53,8 +50,8 @@
     text-align: right;
 }
 .positive {
-    color: green;
+    color: #00a200;
 }
 .negative {
-    color: red;
+    color: #c10000;
 }
