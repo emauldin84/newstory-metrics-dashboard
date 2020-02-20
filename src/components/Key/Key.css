@@ -1,0 +1,9 @@
+.key-container{
+    text-align: left;
+    font-size: calc(1px + 2vmin);
+    margin-left: 15px;
+}
+
+.key-container p {
+    margin-top: 0;
+}

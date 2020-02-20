@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import Metric from '../Metric/Metric'
 import ComparisonFrequency from '../ComparisonFrequency/ComparisonFrequency'
-import Modal from '../Modal/Modal'
+// import Modal from '../Modal/Modal'
+import Key from '../Key/Key'
 
 let Dashboard = () => {
     // const [metrics, setMetrics] = useState([])
@@ -180,6 +181,7 @@ let Dashboard = () => {
             </div>
             {metricsDisplay}
             {/* {modal} */}
+            <Key />
         </div>
     );
 }
