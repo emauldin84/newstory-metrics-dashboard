@@ -8,7 +8,7 @@ import Modal from '../Modal/Modal'
 
 let Dashboard = () => {
     // const [metrics, setMetrics] = useState([])
-    const [frequency, setFrequency] = useState('lastMonth')
+    const [frequency, setFrequency] = useState(['currentMonth','lastMonth'])
     const [refresh, setRefresh] = useState(true)
     // const [fetching, setFetching] = useState(false)
     // const [selectedMetric, setSelectedMetric] = useState(null)
@@ -16,69 +16,99 @@ let Dashboard = () => {
         users: {
             active: {
                 current: 39,
+                currentMonth: 39,
+                currentQuarter: 55,
+                currentYear: 100,
                 lastMonth: 39,
-                lastQuarter: 30,
-                lastYear: 10,
+                lastQuarter: 50,
+                lastYear: 90,
             },
             new: {
                 current: 8,
-                lastMonth: 7,
+                currentMonth: 8,
+                currentQuarter: 20,
+                currentYear: 100,
+                lastMonth: 6,
                 lastQuarter: 12,
-                lastYear: 5,
+                lastYear: 40,
             },
             total: {
                 current: 812,
+                currentMonth: 812,
+                currentQuarter: 812,
+                currentYear: 812,
                 lastMonth: 804,
-                lastQuarter: 797,
-                lastYear: 785,
+                lastQuarter: 792,
+                lastYear: 712,
             },
         },
         organizations: {
             active: {
                 current: 39,
-                lastMonth: 36,
-                lastQuarter: 30,
-                lastYear: 10,
+                currentMonth: 39,
+                currentQuarter: 55,
+                currentYear: 100,
+                lastMonth: 32,
+                lastQuarter: 50,
+                lastYear: 90,
             },
             new: {
                 current: 8,
-                lastMonth: 7,
+                currentMonth: 8,
+                currentQuarter: 20,
+                currentYear: 100,
+                lastMonth: 6,
                 lastQuarter: 12,
-                lastYear: 5,
+                lastYear: 40,
             },
             total: {
                 current: 812,
+                currentMonth: 812,
+                currentQuarter: 812,
+                currentYear: 812,
                 lastMonth: 804,
-                lastQuarter: 797,
-                lastYear: 785,
+                lastQuarter: 792,
+                lastYear: 712,
             },
         },
         recipients: {
             new: {
                 current: 3,
-                lastMonth: 4,
-                lastQuarter: 1,
+                currentMonth: 3,
+                currentQuarter: 4,
+                currentYear: 5,
+                lastMonth: 1,
+                lastQuarter: 0,
                 lastYear: 7,
             },
             total: {
                 current: 483,
-                lastMonth: 475,
-                lastQuarter: 400,
-                lastYear: 200,
+                currentMonth: 483,
+                currentQuarter: 483,
+                currentYear: 483,
+                lastMonth: 480,
+                lastQuarter: 479,
+                lastYear: 478,
             },
         },
         submissions: {
             new: {
                 current: 3,
-                lastMonth: 4,
-                lastQuarter: 1,
+                currentMonth: 3,
+                currentQuarter: 4,
+                currentYear: 5,
+                lastMonth: 1,
+                lastQuarter: 0,
                 lastYear: 7,
             },
             total: {
                 current: 483,
-                lastMonth: 413,
-                lastQuarter: 303,
-                lastYear: 116,
+                currentMonth: 483,
+                currentQuarter: 483,
+                currentYear: 483,
+                lastMonth: 480,
+                lastQuarter: 479,
+                lastYear: 478,
             },
         },
     }
@@ -127,8 +157,8 @@ let Dashboard = () => {
     let metricsDisplay = Object.keys(nsMetrics).map(m => {
         return <Metric 
                     key={m} 
-                    metricsData={nsMetrics[m]}
                     metrics={m}
+                    metricsData={nsMetrics[m]}
                     frequency={frequency}
                     // selectedMetric={selectedMetric} 
                     // handleMetricClick={handleMetricClick}
