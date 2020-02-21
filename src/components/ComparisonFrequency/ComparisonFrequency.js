@@ -11,8 +11,10 @@ let ComparisonFrequency = (props) => {
             <p className='frequency-title'>Comparison Frequency</p>
             <div className='frequency-selector'>
                 <p className={monthClass} onClick={() => props.handleFrequencyClick(['currentMonth', 'lastMonth'])}>month</p>
+                <p className='divider'>|</p>
                 <p className={quarterClass} onClick={() => props.handleFrequencyClick(['currentQuarter', 'lastQuarter'])}>quarter</p>
-                <p className={yearClass} onClick={() => props.handleFrequencyClick(['currentYear', 'lastYear'])}>year</p>
+                <p className='divider'>|</p>
+                <p className={yearClass} onClick={() => props.handleFrequencyClick(['currentYear', 'lastYear'])}>year</p> 
             </div>
         </div>
     )

@@ -15,8 +15,11 @@
 
 .frequency {
     color: #00BAE0;
-    margin-left: 15px;
+    margin-left: calc(5px + 1vmin);
     text-decoration: underline;
+}
+.divider{
+    margin-left: calc(5px + 1vmin);
 }
 .frequency:hover {
     cursor: pointer;
