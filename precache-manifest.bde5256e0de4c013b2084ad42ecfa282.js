@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5b6e7c059ebc2df0220855aa622a1ee7",
+    "revision": "8c32a4b2954a550fa5d24cf12cab2ddb",
     "url": "/newstory-metrics-dashboard/index.html"
   },
   {
-    "revision": "8f8ce55ffb474e8ec193",
-    "url": "/newstory-metrics-dashboard/static/css/main.515cd36f.chunk.css"
+    "revision": "4f364b8859d2fea83acc",
+    "url": "/newstory-metrics-dashboard/static/css/main.5a8effa3.chunk.css"
   },
   {
     "revision": "f53431a4eebbe75464a1",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/newstory-metrics-dashboard/static/js/2.68549f7b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8f8ce55ffb474e8ec193",
-    "url": "/newstory-metrics-dashboard/static/js/main.ed2716fe.chunk.js"
+    "revision": "4f364b8859d2fea83acc",
+    "url": "/newstory-metrics-dashboard/static/js/main.dc5baad2.chunk.js"
   },
   {
     "revision": "d446ec18f6eacbf66545",
