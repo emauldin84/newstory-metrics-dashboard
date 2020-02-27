@@ -114,7 +114,7 @@ let Dashboard = () => {
 
     useEffect(() => {
         if(userToken) fetchComparisonData(userToken, setComparisonMetrics, frequency[1])
-    }, [userToken])
+    }, [userToken, frequency])
     
     // const handleMetricClick = (e) => {
     //     let selected = metrics.filter(metric => {
@@ -129,7 +129,7 @@ let Dashboard = () => {
 
     const handleFrequencyClick = (freq) => {
         setFrequency(freq)
-        fetchComparisonData(userToken, setComparisonMetrics, frequency[1])
+        // fetchComparisonData(userToken, setComparisonMetrics, frequency[1])
     }
     const handleRefresh = () => {
         setRefresh(!refresh)
