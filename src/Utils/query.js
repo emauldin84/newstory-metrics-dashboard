@@ -1,4 +1,5 @@
 import axios from 'axios'
+import moment from 'moment'
 
 export const signInUser = async (setUserToken) => {
     await axios.post("https://api-dev.newstory.io/graphql", 
@@ -31,29 +32,31 @@ export const signInUser = async (setUserToken) => {
         })
 }
 
-export const fetchData = (token, setMetrics) => {
+export const fetchComparisonData = (token, setComparisonMetrics, frequency) => {
     console.log('token', token)
+    let compDate = moment().subtract(frequency, 'days').format('YYYY-MM-DD')
+    console.log(compDate)
     axios.post("https://api-dev.newstory.io/graphql", 
     {
         query: `
-            query {users(lastSyncedAt:"2020-02-26"){
+            query {users(lastSyncedAt:"${compDate}"){
                 uuid
                 username
                 firstName
                 lastName
                 createdAt
                 }
-                organizations(lastSyncedAt:"2020-02-26"){
+                organizations(lastSyncedAt:"${compDate}"){
                     uuid
                     name
                 }
-                recipients(lastSyncedAt:"2020-02-26"){
+                recipients(lastSyncedAt:"${compDate}"){
                     uuid
                     name
                     createdAt
                     updatedAt
                 }
-                submissions(lastSyncedAt:"2020-02-26"){
+                submissions(lastSyncedAt:"${compDate}"){
                     uuid
                     surveyor {
                         firstName
@@ -73,8 +76,8 @@ export const fetchData = (token, setMetrics) => {
         }
     })
     .then(res => {
-        console.log(res.data)
-        setMetrics(res.data.data)
+        console.log(res.data.data)
+        setComparisonMetrics(res.data.data)
     })
     .catch(err => {
         throw err
