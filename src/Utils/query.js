@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export const signInUser = (setUserToken) => {
-    axios.post("https://api-dev.newstory.io/graphql", 
+export const signInUser = async (setUserToken) => {
+    await axios.post("https://api-dev.newstory.io/graphql", 
         {
             query: `
                 mutation { signInUser(email: "emauldin84@gmail.com", password:"thrivenotsurvive"){
@@ -31,7 +31,7 @@ export const signInUser = (setUserToken) => {
         })
 }
 
-export const fetchData = (token) => {
+export const fetchData = (token, setMetrics) => {
     console.log('token', token)
     axios.post("https://api-dev.newstory.io/graphql", 
     {
@@ -74,6 +74,7 @@ export const fetchData = (token) => {
     })
     .then(res => {
         console.log(res.data)
+        setMetrics(res.data.data)
     })
     .catch(err => {
         throw err

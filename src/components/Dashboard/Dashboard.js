@@ -14,7 +14,7 @@ let Dashboard = () => {
     const [frequency, setFrequency] = useState(['currentMonth','lastMonth'])
     const [refresh, setRefresh] = useState(true)
     const [userToken, setUserToken] = useState(null)
-    // const [fetching, setFetching] = useState(false)
+    const [fetching, setFetching] = useState(true)
     // const [selectedMetric, setSelectedMetric] = useState(null)
     let nsMetrics = {
         users: {
@@ -109,11 +109,13 @@ let Dashboard = () => {
 
     useEffect(() => {
         signInUser(setUserToken)
+        
     }, [])
 
-    const handleClick = () => {
+    useEffect(() => {
         fetchData(userToken, setMetrics)
-    }
+    }, [userToken])
+    
     // NOT NECESSARY UNTIL WE RECEIVE API INFO FROM MORGAN
 
     // useEffect(() => {
@@ -172,7 +174,7 @@ let Dashboard = () => {
     return (
         <div className="dashboard-container" >
             <div className='logo-container'>
-                <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png' onClick={handleClick}/>
+                <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png' onClick={handleRefresh}/>
             </div>
             <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency}/>
             <div className='title-display'>
