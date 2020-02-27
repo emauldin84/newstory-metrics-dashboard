@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
+
+import { signInUser, fetchData } from '../../Utils/query'
 
 import './Dashboard.css';
 import Metric from '../Metric/Metric'
@@ -8,9 +10,10 @@ import ComparisonFrequency from '../ComparisonFrequency/ComparisonFrequency'
 import Key from '../Key/Key'
 
 let Dashboard = () => {
-    // const [metrics, setMetrics] = useState([])
+    const [metrics, setMetrics] = useState([])
     const [frequency, setFrequency] = useState(['currentMonth','lastMonth'])
     const [refresh, setRefresh] = useState(true)
+    const [userToken, setUserToken] = useState(null)
     // const [fetching, setFetching] = useState(false)
     // const [selectedMetric, setSelectedMetric] = useState(null)
     let nsMetrics = {
@@ -105,25 +108,12 @@ let Dashboard = () => {
     }
 
     useEffect(() => {
-        const myHeaders = new Headers();
-        myHeaders.append("ACCEPT", "application/json");
-        myHeaders.append("X-Api-Key", "54125abed83236f363b8330eefe6f4e3");
-        myHeaders.append("Content-Type", "application/json");
-
-        const raw = JSON.stringify({"query":"mutation {signInUser(email: \"emauldin84@gmail.com\", password:\"thrivenotsurvive\") { token viewer { uuid email firstName lastName } } }","variables":null});
-
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://api-dev.newstory.io/graphql", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(JSON.parse(result)))
-        .catch(error => console.log('error', error));
+        signInUser(setUserToken)
     }, [])
+
+    const handleClick = () => {
+        fetchData(userToken, setMetrics)
+    }
     // NOT NECESSARY UNTIL WE RECEIVE API INFO FROM MORGAN
 
     // useEffect(() => {
@@ -182,7 +172,7 @@ let Dashboard = () => {
     return (
         <div className="dashboard-container" >
             <div className='logo-container'>
-                <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png' onClick={handleRefresh}/>
+                <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png' onClick={handleClick}/>
             </div>
             <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency}/>
             <div className='title-display'>
@@ -198,3 +188,24 @@ let Dashboard = () => {
 }
 
 export default Dashboard;
+
+
+
+        // const myHeaders = new Headers();
+        // myHeaders.append("ACCEPT", "application/json");
+        // myHeaders.append("X-Api-Key", "54125abed83236f363b8330eefe6f4e3");
+        // myHeaders.append("Content-Type", "application/json");
+
+        // const raw = JSON.stringify({"query":"mutation {signInUser(email: \"emauldin84@gmail.com\", password:\"thrivenotsurvive\") { token viewer { uuid email firstName lastName } } }","variables":null});
+
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     body: raw,
+        //     redirect: 'follow'
+        // };
+
+        // fetch("https://api-dev.newstory.io/graphql", requestOptions)
+        // .then(response => response.text())
+        // .then(result => console.log(JSON.parse(result)))
+        // .catch(error => console.log('error', error));
