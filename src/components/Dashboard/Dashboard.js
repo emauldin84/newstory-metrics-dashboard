@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios'
+import axios from 'axios'
 
 import './Dashboard.css';
 import Metric from '../Metric/Metric'
@@ -104,22 +104,43 @@ let Dashboard = () => {
         },
     }
 
-    
+    useEffect(() => {
+        const myHeaders = new Headers();
+        myHeaders.append("ACCEPT", "application/json");
+        myHeaders.append("X-Api-Key", "54125abed83236f363b8330eefe6f4e3");
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({"query":"mutation {signInUser(email: \"emauldin84@gmail.com\", password:\"thrivenotsurvive\") { token viewer { uuid email firstName lastName } } }","variables":null});
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://api-dev.newstory.io/graphql", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(JSON.parse(result)))
+        .catch(error => console.log('error', error));
+    }, [])
     // NOT NECESSARY UNTIL WE RECEIVE API INFO FROM MORGAN
 
     // useEffect(() => {
     //     setFetching(true)
-    //     currencies.forEach(currency => {
-    //         fetchData(currency)
-    //     })
+    //     // currencies.forEach(currency => {
+    //     //     fetchData(currency)
+    //     // })
+    //     fetchData()
     //     return () => setFetching(false)
     // },[fetching])
     
-    // const fetchData = (cur) => {
-    //     axios.get(`https://api.exchangerate-api.com/v4/latest/${cur}`)
+    // const fetchData = () => {
+    //     axios.get(`https://api-dev.newstory.io/graphql`, {"query":"mutation {signInUser(email: \"{{emauldin84@gmail.com}}\", password:\"{{thrivenotsurvive}}\") { token viewer { uuid email firstName lastName } } }","variables":null})
     //     .then(res => {
     //         if (fetching){
-    //             setMetrics(metrics => [...metrics, res.data])
+    //             // setMetrics(metrics => [res.data])
+    //             console.log(res)
     //         }
     //     })
     //     .catch(err => {
@@ -137,6 +158,7 @@ let Dashboard = () => {
     // const handleBackgroundClick = () => {
     //     setSelectedMetric(null)
     // }
+
     const handleFrequencyClick = (freq) => {
         setFrequency(freq)
     }
