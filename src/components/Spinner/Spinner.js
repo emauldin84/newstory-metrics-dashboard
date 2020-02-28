@@ -4,7 +4,8 @@ import './Spinner.css'
 let Spinner = () => {
     return (
         <div className='loader-backdrop'>
-            <div className="loader">Loading...</div>
+            <div className="loader"></div>
+            <div className="loader-text">Fetching...</div>
         </div>
     )
 }

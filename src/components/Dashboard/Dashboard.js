@@ -12,6 +12,7 @@ import Spinner from '../Spinner/Spinner'
 
 let Dashboard = () => {
     const [comparisonMetrics, setComparisonMetrics] = useState([])
+    const [previousComparisonMetrics, setPreviousComparisonMetrics] = useState([])
     const [currentMetrics, setCurrentMetrics] = useState([])
     const [frequency, setFrequency] = useState(['month', 30])
     const [refresh, setRefresh] = useState(true)
@@ -125,6 +126,7 @@ let Dashboard = () => {
     useEffect(() => {
         if(userToken){
             query.fetchComparisonData(userToken, setComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
+            query.fetchPreviousComparisonData(userToken, setPreviousComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
         }
     }, [userToken, frequency])
     
@@ -146,18 +148,37 @@ let Dashboard = () => {
     // }
 
     const handleFrequencyClick = (freq) => {
-        setFetching(true)
-        setFrequency(freq)
+        if (freq[1] !== frequency[1]){
+            setFetching(true)
+            setFrequency(freq)
+        }
     }
     const handleRefresh = () => {
         setRefresh(!refresh)
     }
-    
-    let metricsDisplay = Object.keys(nsMetrics).map(m => {
+    const nsData = {}
+    Object.keys(currentMetrics).forEach(m => {
+        nsData[m] = {
+            active: {
+                current: null,
+                comparison: null
+            },
+            new: {
+                current: currentMetrics[m].length - comparisonMetrics[m].length,
+                comparison: comparisonMetrics[m].length - previousComparisonMetrics[m].length
+            },
+            total: {
+                current: currentMetrics[m].length,
+                comparison: comparisonMetrics[m].length
+            },
+        }
+
+    })
+    let metricsDisplay = Object.keys(nsData).map(cM => {
         return <Metric 
-                    key={m} 
-                    metrics={m}
-                    metricsData={nsMetrics[m]}
+                    key={cM} 
+                    metrics={cM}
+                    metricsData={nsData[cM]}
                     frequency={frequency}
                     // selectedMetric={selectedMetric} 
                     // handleMetricClick={handleMetricClick}

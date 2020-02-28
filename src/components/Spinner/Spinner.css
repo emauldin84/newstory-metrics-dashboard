@@ -70,3 +70,8 @@
     top: 0;
     background-color: rgba(0, 0, 0, .5)
 }
+.loader-text{
+  color: #00bae0;
+  margin-top: 100px;
+  margin-left: calc(-20px - 3vmin);
+}
