@@ -8,6 +8,7 @@ import Metric from '../Metric/Metric'
 import ComparisonFrequency from '../ComparisonFrequency/ComparisonFrequency'
 // import Modal from '../Modal/Modal'
 import Key from '../Key/Key'
+import Spinner from '../Spinner/Spinner'
 
 let Dashboard = () => {
     const [comparisonMetrics, setComparisonMetrics] = useState([])
@@ -113,7 +114,10 @@ let Dashboard = () => {
     }, [])
 
     useEffect(() => {
-        if(userToken) fetchComparisonData(userToken, setComparisonMetrics, frequency[1])
+        if(userToken){
+            fetchComparisonData(userToken, setComparisonMetrics, frequency[1])
+            setFetching(false)
+        }
     }, [userToken, frequency])
     
     // const handleMetricClick = (e) => {
@@ -128,8 +132,8 @@ let Dashboard = () => {
     // }
 
     const handleFrequencyClick = (freq) => {
+        setFetching(true)
         setFrequency(freq)
-        // fetchComparisonData(userToken, setComparisonMetrics, frequency[1])
     }
     const handleRefresh = () => {
         setRefresh(!refresh)
@@ -147,6 +151,7 @@ let Dashboard = () => {
     })
 
     // let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
+    let spinner = fetching ? <Spinner /> : null
 
     return (
         <div className="dashboard-container" >
@@ -162,6 +167,7 @@ let Dashboard = () => {
             {metricsDisplay}
             {/* {modal} */}
             <Key />
+            {spinner}
         </div>
     );
 }
