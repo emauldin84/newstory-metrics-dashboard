@@ -10,8 +10,8 @@
 .loader {
   color: #00bae0;
   text-indent: -9999em;
-  margin: 33% auto;
-  position: relative;
+  /* margin: 25% auto; */
+  /* position: relative; */
   font-size: 11px;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
@@ -59,6 +59,9 @@
 }
 
 .loader-backdrop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
     position: fixed;
