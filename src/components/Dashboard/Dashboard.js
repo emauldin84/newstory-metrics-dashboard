@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // import axios from 'axios'
 
-import { signInUser, fetchComparisonData } from '../../Utils/query'
+import query from '../../Utils/query'
 
 import './Dashboard.css';
 import Metric from '../Metric/Metric'
@@ -12,6 +12,7 @@ import Spinner from '../Spinner/Spinner'
 
 let Dashboard = () => {
     const [comparisonMetrics, setComparisonMetrics] = useState([])
+    const [currentMetrics, setCurrentMetrics] = useState([])
     const [frequency, setFrequency] = useState(['month', 30])
     const [refresh, setRefresh] = useState(true)
     const [userToken, setUserToken] = useState(null)
@@ -108,17 +109,30 @@ let Dashboard = () => {
         },
     }
 
+    const frequencyRef = useRef()
+    
     useEffect(() => {
-        signInUser(setUserToken)
+        query.signInUser(setUserToken)
         
     }, [])
 
     useEffect(() => {
+        frequencyRef.current = frequency
+    })
+
+    const prevFrequency = frequencyRef.current
+
+    useEffect(() => {
         if(userToken){
-            fetchComparisonData(userToken, setComparisonMetrics, frequency[1])
-            setFetching(false)
+            query.fetchComparisonData(userToken, setComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
         }
     }, [userToken, frequency])
+    
+    useEffect(() => {
+        if(userToken){
+            query.fetchCurrentData(userToken, setCurrentMetrics, setFetching)
+        }
+    }, [userToken])
     
     // const handleMetricClick = (e) => {
     //     let selected = metrics.filter(metric => {

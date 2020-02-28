@@ -1,7 +1,8 @@
+// import React, { useRef } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 
-export const signInUser = async (setUserToken) => {
+const signInUser = async (setUserToken) => {
     await axios.post("https://api-dev.newstory.io/graphql", 
         {
             query: `
@@ -32,7 +33,9 @@ export const signInUser = async (setUserToken) => {
         })
 }
 
-export const fetchComparisonData = (token, setComparisonMetrics, frequency) => {
+const fetchComparisonData = (token, setComparisonMetrics, frequency, setFetching, prevFrequency) => {
+    // const frequencyRef = useRef(frequency)
+    // console.log(frequencyRef.current, ' vs ', frequency)
     console.log('token', token)
     let compDate = moment().subtract(frequency, 'days').format('YYYY-MM-DD')
     console.log(compDate)
@@ -78,8 +81,65 @@ export const fetchComparisonData = (token, setComparisonMetrics, frequency) => {
     .then(res => {
         console.log(res.data.data)
         setComparisonMetrics(res.data.data)
+        if ( frequency !== prevFrequency ) setFetching(false)
     })
     .catch(err => {
         throw err
     })
+}
+const fetchCurrentData = (token, setCurrentMetrics, setFetching) => {
+    console.log('token', token)
+    axios.post("https://api-dev.newstory.io/graphql", 
+    {
+        query: `
+            query {users{
+                uuid
+                username
+                firstName
+                lastName
+                createdAt
+                }
+                organizations{
+                    uuid
+                    name
+                }
+                recipients{
+                    uuid
+                    name
+                    createdAt
+                    updatedAt
+                }
+                submissions{
+                    uuid
+                    surveyor {
+                        firstName
+                        lastName
+                        username
+                    }
+                    createdAt 
+                }
+            }
+        `
+    },
+    {
+        headers: {
+        "Authorization": token,
+        "X-Api-Key": "54125abed83236f363b8330eefe6f4e3",
+        'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+        console.log(res.data.data)
+        setCurrentMetrics(res.data.data)
+        setFetching(false)
+    })
+    .catch(err => {
+        throw err
+    })
+}
+
+export default {
+    signInUser,
+    fetchComparisonData,
+    fetchCurrentData
 }
