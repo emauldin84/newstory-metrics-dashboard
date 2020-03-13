@@ -186,7 +186,11 @@ let Dashboard = () => {
     })
 
     // let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
-    let spinner = fetching ? <Spinner /> : null
+    let dashDisplay = fetching ? <Spinner /> : 
+    <div>
+        {metricsDisplay}
+        <Key />
+    </div>
 
     return (
         <div className="dashboard-container" >
@@ -199,10 +203,7 @@ let Dashboard = () => {
                 <p className='titles' id='title-value'><b>Value</b></p>
                 <p className='titles' id='title-comparison'><b>Comparison</b></p>
             </div>
-            {metricsDisplay}
-            {/* {modal} */}
-            <Key />
-            {spinner}
+            {dashDisplay}
         </div>
     );
 }
