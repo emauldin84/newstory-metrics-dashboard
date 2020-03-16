@@ -110,25 +110,25 @@ let Dashboard = () => {
         },
     }
 
-    const frequencyRef = useRef()
+    // const frequencyRef = useRef()
     
     useEffect(() => {
         query.signInUser(setUserToken)
         
     }, [])
 
-    useEffect(() => {
-        frequencyRef.current = frequency
-    })
+    // useEffect(() => {
+    //     frequencyRef.current = frequency
+    // })
 
-    const prevFrequency = frequencyRef.current
+    // const prevFrequency = frequencyRef.current
 
-    useEffect(() => {
-        if(userToken){
-            query.fetchComparisonData(userToken, setComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
-            query.fetchPreviousComparisonData(userToken, setPreviousComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
-        }
-    }, [userToken, frequency])
+    // useEffect(() => {
+    //     if(userToken){
+    //         query.fetchComparisonData(userToken, setComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
+    //         query.fetchPreviousComparisonData(userToken, setPreviousComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
+    //     }
+    // }, [userToken, frequency])
     
     useEffect(() => {
         if(userToken){

@@ -136,24 +136,30 @@ const fetchCurrentData = (token, setCurrentMetrics, setFetching) => {
     axios.post("https://api-dev.newstory.io/graphql", 
     {
         query: `
-            query {users{
-                uuid
-                username
-                firstName
-                lastName
-                createdAt
-                }
+            query {
+                users {
+                    uuid
+                    username
+                    createdAt
+                    lastSignInAt
+                    }
                 organizations{
                     uuid
                     name
-                }
+                    createdAt
+                    users {
+                        uuid
+                    username
+                        lastSignInAt
+                        }
+                    }
                 recipients{
                     uuid
                     name
                     createdAt
                     updatedAt
                 }
-                submissions{
+                submissions {
                     uuid
                     surveyor {
                         firstName
