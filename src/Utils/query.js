@@ -31,108 +31,108 @@ const signInUser = async (setUserToken) => {
             throw err
         })
 }
-const fetchComparisonData = (token, setComparisonMetrics, frequency, setFetching, prevFrequency) => {
-    let compDate = moment().subtract(frequency, 'days').format('YYYY-MM-DD')
-    axios.post("https://api-dev.newstory.io/graphql", 
-    {
-        query: `
-            query {users(lastSyncedAt:"${compDate}"){
-                uuid
-                username
-                firstName
-                lastName
-                createdAt
-                }
-                organizations(lastSyncedAt:"${compDate}"){
-                    uuid
-                    name
-                }
-                recipients(lastSyncedAt:"${compDate}"){
-                    uuid
-                    name
-                    createdAt
-                    updatedAt
-                }
-                submissions(lastSyncedAt:"${compDate}"){
-                    uuid
-                    surveyor {
-                        firstName
-                        lastName
-                        username
-                    }
-                    createdAt 
-                }
-            }
-        `
-    },
-    {
-        headers: {
-        "Authorization": token,
-        "X-Api-Key": "54125abed83236f363b8330eefe6f4e3",
-        'Content-Type': 'application/json'
-        }
-    })
-    .then(res => {
-        console.log('COMP DATA ', res.data.data)
-        setComparisonMetrics(res.data.data)
-        // if ( frequency !== prevFrequency ) setFetching(false)
-    })
-    .catch(err => {
-        throw err
-    })
-}
-const fetchPreviousComparisonData = (token, setComparisonMetrics, frequency, setFetching, prevFrequency) => {
-    let prevFreq = frequency * 2
-    let compDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
-    axios.post("https://api-dev.newstory.io/graphql", 
-    {
-        query: `
-            query {users(lastSyncedAt:"${compDate}"){
-                uuid
-                username
-                firstName
-                lastName
-                createdAt
-                }
-                organizations(lastSyncedAt:"${compDate}"){
-                    uuid
-                    name
-                }
-                recipients(lastSyncedAt:"${compDate}"){
-                    uuid
-                    name
-                    createdAt
-                    updatedAt
-                }
-                submissions(lastSyncedAt:"${compDate}"){
-                    uuid
-                    surveyor {
-                        firstName
-                        lastName
-                        username
-                    }
-                    createdAt 
-                }
-            }
-        `
-    },
-    {
-        headers: {
-        "Authorization": token,
-        "X-Api-Key": "54125abed83236f363b8330eefe6f4e3",
-        'Content-Type': 'application/json'
-        }
-    })
-    .then(res => {
-        console.log('PrevCOMP DATA ', res.data.data)
-        setComparisonMetrics(res.data.data)
-        if ( frequency !== prevFrequency ) setFetching(false)
-    })
-    .catch(err => {
-        throw err
-    })
-}
-const fetchCurrentData = (token, setCurrentMetrics, setFetching) => {
+// const fetchComparisonData = (token, setComparisonMetrics, frequency, setFetching, prevFrequency) => {
+//     let compDate = moment().subtract(frequency, 'days').format('YYYY-MM-DD')
+//     axios.post("https://api-dev.newstory.io/graphql", 
+//     {
+//         query: `
+//             query {users(lastSyncedAt:"${compDate}"){
+//                 uuid
+//                 username
+//                 firstName
+//                 lastName
+//                 createdAt
+//                 }
+//                 organizations(lastSyncedAt:"${compDate}"){
+//                     uuid
+//                     name
+//                 }
+//                 recipients(lastSyncedAt:"${compDate}"){
+//                     uuid
+//                     name
+//                     createdAt
+//                     updatedAt
+//                 }
+//                 submissions(lastSyncedAt:"${compDate}"){
+//                     uuid
+//                     surveyor {
+//                         firstName
+//                         lastName
+//                         username
+//                     }
+//                     createdAt 
+//                 }
+//             }
+//         `
+//     },
+//     {
+//         headers: {
+//         "Authorization": token,
+//         "X-Api-Key": "54125abed83236f363b8330eefe6f4e3",
+//         'Content-Type': 'application/json'
+//         }
+//     })
+//     .then(res => {
+//         console.log('COMP DATA ', res.data.data)
+//         setComparisonMetrics(res.data.data)
+//         // if ( frequency !== prevFrequency ) setFetching(false)
+//     })
+//     .catch(err => {
+//         throw err
+//     })
+// }
+// const fetchPreviousComparisonData = (token, setComparisonMetrics, frequency, setFetching, prevFrequency) => {
+//     let prevFreq = frequency * 2
+//     let compDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
+//     axios.post("https://api-dev.newstory.io/graphql", 
+//     {
+//         query: `
+//             query {users(lastSyncedAt:"${compDate}"){
+//                 uuid
+//                 username
+//                 firstName
+//                 lastName
+//                 createdAt
+//                 }
+//                 organizations(lastSyncedAt:"${compDate}"){
+//                     uuid
+//                     name
+//                 }
+//                 recipients(lastSyncedAt:"${compDate}"){
+//                     uuid
+//                     name
+//                     createdAt
+//                     updatedAt
+//                 }
+//                 submissions(lastSyncedAt:"${compDate}"){
+//                     uuid
+//                     surveyor {
+//                         firstName
+//                         lastName
+//                         username
+//                     }
+//                     createdAt 
+//                 }
+//             }
+//         `
+//     },
+//     {
+//         headers: {
+//         "Authorization": token,
+//         "X-Api-Key": "54125abed83236f363b8330eefe6f4e3",
+//         'Content-Type': 'application/json'
+//         }
+//     })
+//     .then(res => {
+//         console.log('PrevCOMP DATA ', res.data.data)
+//         setComparisonMetrics(res.data.data)
+//         if ( frequency !== prevFrequency ) setFetching(false)
+//     })
+//     .catch(err => {
+//         throw err
+//     })
+// }
+const fetchCurrentData = (token, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setFetching) => {
     axios.post("https://api-dev.newstory.io/graphql", 
     {
         query: `
@@ -181,6 +181,18 @@ const fetchCurrentData = (token, setCurrentMetrics, setFetching) => {
     .then(res => {
         console.log('CUR DATA ',res.data.data)
         setCurrentMetrics(res.data.data)
+
+        console.log('CHECKING MOMENT', moment(res.data.data.users[0].createdAt).isValid())
+        let compDate = moment().subtract(frequency, 'days').format('YYYY-MM-DD')
+        let filteredCompData = Object.keys(res.data.data).map(category => {
+            return res.data.data[category].filter(item => {
+                return item.createdAt < compDate
+            })
+        })
+        setComparisonMetrics(filteredCompData)
+        setPreviousComparisonMetrics()
+        let prevFreq = frequency * 2
+        let prevCompDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
         setFetching(false)
     })
     .catch(err => {
@@ -190,7 +202,7 @@ const fetchCurrentData = (token, setCurrentMetrics, setFetching) => {
 
 export default {
     signInUser,
-    fetchComparisonData,
-    fetchPreviousComparisonData,
+    // fetchComparisonData,
+    // fetchPreviousComparisonData,
     fetchCurrentData
 }

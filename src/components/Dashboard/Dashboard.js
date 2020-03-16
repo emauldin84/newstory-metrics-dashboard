@@ -132,7 +132,7 @@ let Dashboard = () => {
     
     useEffect(() => {
         if(userToken){
-            query.fetchCurrentData(userToken, setCurrentMetrics, setFetching)
+            query.fetchCurrentData(userToken, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setFetching)
         }
     }, [userToken])
     
@@ -164,12 +164,12 @@ let Dashboard = () => {
                 comparison: null
             },
             new: {
-                current: currentMetrics[m].length - comparisonMetrics[m].length,
-                comparison: comparisonMetrics[m].length - previousComparisonMetrics[m].length
+                // current: currentMetrics[m].length - comparisonMetrics[m].length,
+                // comparison: comparisonMetrics[m].length - previousComparisonMetrics[m].length
             },
             total: {
                 current: currentMetrics[m].length,
-                comparison: comparisonMetrics[m].length
+                // comparison: comparisonMetrics[m].length
             },
         }
 
