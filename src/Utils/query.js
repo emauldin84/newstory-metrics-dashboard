@@ -221,8 +221,9 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
     })
 }
 
-const setCompData = (data, frequency, setComparisonMetrics, setPreviousComparisonMetrics) => {
+const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics) => {
     // setting comparison data based on set frequency
+    console.log(frequency)
     let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
     let filteredCompData = {}
     Object.keys(data).forEach(category => {
@@ -233,7 +234,7 @@ const setCompData = (data, frequency, setComparisonMetrics, setPreviousCompariso
         })
         filteredCompData[category] = result
     })
-    setComparisonMetrics(filteredCompData)
+    setCompMetrics(filteredCompData)
 
     // setting previous comparison data based on set frequency to determine 'new' users/orgs rate.
     let prevFreq = frequency[1] * 2
@@ -247,7 +248,7 @@ const setCompData = (data, frequency, setComparisonMetrics, setPreviousCompariso
         })
         filteredPrevCompData[category] = result
     })
-    setPreviousComparisonMetrics(filteredPrevCompData)
+    setPrevCompMetrics(filteredPrevCompData)
 }
 
 export default {

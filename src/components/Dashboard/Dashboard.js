@@ -114,7 +114,6 @@ let Dashboard = () => {
     
     useEffect(() => {
         query.signInUser(setUserToken)
-        
     }, [])
 
     // useEffect(() => {
@@ -123,12 +122,13 @@ let Dashboard = () => {
 
     // const prevFrequency = frequencyRef.current
 
-    // useEffect(() => {
-    //     if(userToken){
-    //         query.fetchComparisonData(userToken, setComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
-    //         query.fetchPreviousComparisonData(userToken, setPreviousComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
-    //     }
-    // }, [userToken, frequency])
+    useEffect(() => {
+        if(userToken){
+            // query.fetchComparisonData(userToken, setComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
+            // query.fetchPreviousComparisonData(userToken, setPreviousComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
+            query.setCompData(currentMetrics, frequency, setComparisonMetrics, setPreviousComparisonMetrics)
+        }
+    }, [userToken, frequency])
     
     useEffect(() => {
         if(userToken){
@@ -151,7 +151,6 @@ let Dashboard = () => {
         if (freq[1] !== frequency[1]){
             // setFetching(true)
             setFrequency(freq)
-            query.setCompData(currentMetrics, frequency, setComparisonMetrics, setPreviousComparisonMetrics)
         }
     }
     const handleRefresh = () => {
