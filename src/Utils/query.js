@@ -223,14 +223,13 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
 
 const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics) => {
     // setting comparison data based on set frequency
-    console.log(frequency)
     let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
     let filteredCompData = {}
     Object.keys(data).forEach(category => {
         let result  = data[category].filter(item => {
             let endex = item.createdAt.indexOf('T')
             let createdAt = item.createdAt.substring(0, endex)
-            return createdAt < compDate
+            return createdAt > compDate
         })
         filteredCompData[category] = result
     })
@@ -244,7 +243,7 @@ const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics) => {
         let result  = data[category].filter(item => {
             let endex = item.createdAt.indexOf('T')
             let createdAt = item.createdAt.substring(0, endex)
-            return createdAt < prevCompDate
+            return createdAt > prevCompDate
         })
         filteredPrevCompData[category] = result
     })

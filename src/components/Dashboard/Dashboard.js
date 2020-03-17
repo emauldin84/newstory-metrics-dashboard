@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import axios from 'axios'
+import moment from 'moment'
 
 import query from '../../Utils/query'
 
@@ -158,7 +158,28 @@ let Dashboard = () => {
     }
     const nsData = {}
     Object.keys(currentMetrics).forEach(m => {
-        nsData[m] = comparisonMetrics[m] && previousComparisonMetrics[m] ? {
+        let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
+
+        let currentActiveUsers = m === 'users' ? currentMetrics[m].filter(active => {
+            return active.lastSignInAt > compDate
+        }) : null
+        console.log('currentActiveUsers', currentActiveUsers)
+        
+        let currentActiveOrgs = m === 'organizations' ? currentMetrics[m].map(org => {
+            console.log('ORG', org)
+            let activeUsers = org.users.filter(user => {
+                return user.lastSignInAt > compDate
+            })
+            return activeUsers
+        }) : null
+        console.log('currentActiveOrgs', currentActiveOrgs)
+        let prevActiveUsers = comparisonMetrics[m]
+
+
+
+        nsData[m] = comparisonMetrics[m] && previousComparisonMetrics[m] ? 
+        m === 'organizations' || m === 'users' ? 
+        {
             active: {
                 current: null,
                 comparison: null
@@ -171,7 +192,20 @@ let Dashboard = () => {
                 current: currentMetrics[m].length,
                 comparison: comparisonMetrics[m].length
             },
-        } : null
+        } 
+        :
+        {
+            new: {
+                current: currentMetrics[m].length - comparisonMetrics[m].length,
+                comparison: comparisonMetrics[m].length - previousComparisonMetrics[m].length
+            },
+            total: {
+                current: currentMetrics[m].length,
+                comparison: comparisonMetrics[m].length
+            },
+        }
+        
+        : null
 
     })
     let metricsDisplay = Object.keys(nsData).map(cM => {
