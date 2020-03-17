@@ -149,7 +149,7 @@ let Dashboard = () => {
 
     const handleFrequencyClick = (freq) => {
         if (freq[1] !== frequency[1]){
-            setFetching(true)
+            // setFetching(true)
             setFrequency(freq)
         }
     }
@@ -158,6 +158,7 @@ let Dashboard = () => {
     }
     const nsData = {}
     Object.keys(currentMetrics).forEach(m => {
+        // console.log('CM', comparisonMetrics)
         nsData[m] = {
             active: {
                 current: null,

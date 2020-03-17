@@ -180,19 +180,38 @@ const fetchCurrentData = (token, frequency, setCurrentMetrics, setComparisonMetr
     })
     .then(res => {
         console.log('CUR DATA ',res.data.data)
+        // setting current data
         setCurrentMetrics(res.data.data)
 
-        console.log('CHECKING MOMENT', moment(res.data.data.users[0].createdAt).isValid())
-        let compDate = moment().subtract(frequency, 'days').format('YYYY-MM-DD')
-        let filteredCompData = Object.keys(res.data.data).map(category => {
-            return res.data.data[category].filter(item => {
-                return item.createdAt < compDate
+        // setting comparison data based on set frequency
+        console.log('FREQUENCY', frequency)
+        let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
+        let filteredCompData = {}
+        Object.keys(res.data.data).forEach(category => {
+            console.log('CATEGORY', category)
+            let result  = res.data.data[category].filter(item => {
+                let endex = item.createdAt.indexOf('T')
+                let createdAt = item.createdAt.substring(0, endex)
+                return createdAt > compDate
             })
+            filteredCompData[category] = result
         })
         setComparisonMetrics(filteredCompData)
-        setPreviousComparisonMetrics()
-        let prevFreq = frequency * 2
+
+        // setting previous comparison data based on set frequency to determine 'new' users/orgs rate.
+        let prevFreq = frequency[1] * 2
         let prevCompDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
+        let filteredPrevCompData = {}
+        Object.keys(res.data.data).forEach(category => {
+            console.log('CATEGORY', category)
+            let result  = res.data.data[category].filter(item => {
+                let endex = item.createdAt.indexOf('T')
+                let createdAt = item.createdAt.substring(0, endex)
+                return createdAt > prevCompDate
+            })
+            filteredPrevCompData[category] = result
+        })
+        setPreviousComparisonMetrics(filteredPrevCompData)
         setFetching(false)
     })
     .catch(err => {
