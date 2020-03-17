@@ -159,6 +159,7 @@ let Dashboard = () => {
     const nsData = {}
     Object.keys(currentMetrics).forEach(m => {
         let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
+        let prevDate = moment().subtract((frequency[1] * 2), 'days').format('YYYY-MM-DD')
 
         let currentActiveUsers = m === 'users' ? currentMetrics[m].filter(active => {
             return active.lastSignInAt > compDate
@@ -173,7 +174,17 @@ let Dashboard = () => {
             return activeUsers
         }) : null
         console.log('currentActiveOrgs', currentActiveOrgs)
-        let prevActiveUsers = comparisonMetrics[m]
+
+        let prevActiveUsers = m === 'users' ? currentMetrics[m].filter(active => {
+            return active.lastSignInAt > prevDate
+        }) : null
+        let prevActiveOrgs = m === 'organizations' ? currentMetrics[m].map(org => {
+            console.log('ORG', org)
+            let activeUsers = org.users.filter(user => {
+                return user.lastSignInAt > prevDate
+            })
+            return activeUsers
+        }) : null
 
 
 
@@ -181,8 +192,8 @@ let Dashboard = () => {
         m === 'organizations' || m === 'users' ? 
         {
             active: {
-                current: null,
-                comparison: null
+                current: m === 'organizations' ? currentActiveOrgs.length : currentActiveUsers.length,
+                comparison: m === 'organizations' ? prevActiveOrgs.length -currentActiveOrgs.length : prevActiveUsers.length -currentActiveUsers.length
             },
             new: {
                 current: currentMetrics[m].length - comparisonMetrics[m].length,
