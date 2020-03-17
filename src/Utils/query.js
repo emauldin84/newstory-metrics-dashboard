@@ -132,7 +132,7 @@ const signInUser = async (setUserToken) => {
 //         throw err
 //     })
 // }
-const fetchCurrentData = (token, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setFetching) => {
+const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setFetching) => {
     axios.post("https://api-dev.newstory.io/graphql", 
     {
         query: `
@@ -223,5 +223,5 @@ export default {
     signInUser,
     // fetchComparisonData,
     // fetchPreviousComparisonData,
-    fetchCurrentData
+    fetchData
 }
