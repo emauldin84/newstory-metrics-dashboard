@@ -183,35 +183,37 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
         // setting current data
         setCurrentMetrics(res.data.data)
 
-        // setting comparison data based on set frequency
-        console.log('FREQUENCY', frequency)
-        let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
-        let filteredCompData = {}
-        Object.keys(res.data.data).forEach(category => {
-            console.log('CATEGORY', category)
-            let result  = res.data.data[category].filter(item => {
-                let endex = item.createdAt.indexOf('T')
-                let createdAt = item.createdAt.substring(0, endex)
-                return createdAt > compDate
-            })
-            filteredCompData[category] = result
-        })
-        setComparisonMetrics(filteredCompData)
+    //     // setting comparison data based on set frequency
+    //     console.log('FREQUENCY', frequency)
+    //     let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
+    //     let filteredCompData = {}
+    //     Object.keys(res.data.data).forEach(category => {
+    //         console.log('CATEGORY', category)
+    //         let result  = res.data.data[category].filter(item => {
+    //             let endex = item.createdAt.indexOf('T')
+    //             let createdAt = item.createdAt.substring(0, endex)
+    //             return createdAt < compDate
+    //         })
+    //         filteredCompData[category] = result
+    //     })
+    //     console.log('FILTERED', filteredCompData)
+    //     setComparisonMetrics(filteredCompData)
 
-        // setting previous comparison data based on set frequency to determine 'new' users/orgs rate.
-        let prevFreq = frequency[1] * 2
-        let prevCompDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
-        let filteredPrevCompData = {}
-        Object.keys(res.data.data).forEach(category => {
-            console.log('CATEGORY', category)
-            let result  = res.data.data[category].filter(item => {
-                let endex = item.createdAt.indexOf('T')
-                let createdAt = item.createdAt.substring(0, endex)
-                return createdAt > prevCompDate
-            })
-            filteredPrevCompData[category] = result
-        })
-        setPreviousComparisonMetrics(filteredPrevCompData)
+    //     // setting previous comparison data based on set frequency to determine 'new' users/orgs rate.
+    //     let prevFreq = frequency[1] * 2
+    //     let prevCompDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
+    //     let filteredPrevCompData = {}
+    //     Object.keys(res.data.data).forEach(category => {
+    //         console.log('CATEGORY', category)
+    //         let result  = res.data.data[category].filter(item => {
+    //             let endex = item.createdAt.indexOf('T')
+    //             let createdAt = item.createdAt.substring(0, endex)
+    //             return createdAt < prevCompDate
+    //         })
+    //         filteredPrevCompData[category] = result
+    //     })
+    //     setPreviousComparisonMetrics(filteredPrevCompData)
+        setCompData(res.data.data, frequency, setComparisonMetrics, setPreviousComparisonMetrics)
         setFetching(false)
     })
     .catch(err => {
@@ -219,8 +221,38 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
     })
 }
 
+const setCompData = (data, frequency, setComparisonMetrics, setPreviousComparisonMetrics) => {
+    // setting comparison data based on set frequency
+    let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
+    let filteredCompData = {}
+    Object.keys(data).forEach(category => {
+        let result  = data[category].filter(item => {
+            let endex = item.createdAt.indexOf('T')
+            let createdAt = item.createdAt.substring(0, endex)
+            return createdAt < compDate
+        })
+        filteredCompData[category] = result
+    })
+    setComparisonMetrics(filteredCompData)
+
+    // setting previous comparison data based on set frequency to determine 'new' users/orgs rate.
+    let prevFreq = frequency[1] * 2
+    let prevCompDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
+    let filteredPrevCompData = {}
+    Object.keys(data).forEach(category => {
+        let result  = data[category].filter(item => {
+            let endex = item.createdAt.indexOf('T')
+            let createdAt = item.createdAt.substring(0, endex)
+            return createdAt < prevCompDate
+        })
+        filteredPrevCompData[category] = result
+    })
+    setPreviousComparisonMetrics(filteredPrevCompData)
+}
+
 export default {
     signInUser,
+    setCompData,
     // fetchComparisonData,
     // fetchPreviousComparisonData,
     fetchData

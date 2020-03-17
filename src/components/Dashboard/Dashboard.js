@@ -151,6 +151,7 @@ let Dashboard = () => {
         if (freq[1] !== frequency[1]){
             // setFetching(true)
             setFrequency(freq)
+            query.setCompData(currentMetrics, frequency, setComparisonMetrics, setPreviousComparisonMetrics)
         }
     }
     const handleRefresh = () => {
@@ -158,21 +159,20 @@ let Dashboard = () => {
     }
     const nsData = {}
     Object.keys(currentMetrics).forEach(m => {
-        // console.log('CM', comparisonMetrics)
-        nsData[m] = {
+        nsData[m] = comparisonMetrics[m] && previousComparisonMetrics[m] ? {
             active: {
                 current: null,
                 comparison: null
             },
             new: {
-                // current: currentMetrics[m].length - comparisonMetrics[m].length,
-                // comparison: comparisonMetrics[m].length - previousComparisonMetrics[m].length
+                current: currentMetrics[m].length - comparisonMetrics[m].length,
+                comparison: comparisonMetrics[m].length - previousComparisonMetrics[m].length
             },
             total: {
                 current: currentMetrics[m].length,
-                // comparison: comparisonMetrics[m].length
+                comparison: comparisonMetrics[m].length
             },
-        }
+        } : null
 
     })
     let metricsDisplay = Object.keys(nsData).map(cM => {
