@@ -6,6 +6,6 @@
 .refresh{
     color: #00BAE0;
     align-self: center;
-    margin-left: 10px;
+    margin-right: 10px;
     font-size: calc(10px + 2vmin)
 }

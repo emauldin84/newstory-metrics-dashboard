@@ -12,12 +12,12 @@ let ComparisonFrequency = (props) => {
         <div className='comparison-container'>
             <p className='frequency-title'>Comparison Frequency</p>
             <div className='frequency-selector'>
+                <Refresh fetchData={props.fetchData} setFetching={props.setFetching}/>
                 <p className={monthClass} onClick={() => props.handleFrequencyClick(['month', 30])}>month</p>
                 <p className='divider'>|</p>
                 <p className={quarterClass} onClick={() => props.handleFrequencyClick(['quarter', 91])}>quarter</p>
                 <p className='divider'>|</p>
                 <p className={yearClass} onClick={() => props.handleFrequencyClick(['year', 365])}>year</p>
-                <Refresh fetchData={props.fetchData} setFetching={props.setFetching}/>
             </div>
         </div>
     )
