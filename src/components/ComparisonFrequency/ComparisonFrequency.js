@@ -2,6 +2,8 @@ import React from 'react'
 
 import './ComparisonFrequency.css'
 
+import Refresh from '../Refresh/Refresh'
+
 let ComparisonFrequency = (props) => {
     let monthClass = props.frequency[0] === 'month' ? 'active frequency month' : 'frequency month'
     let quarterClass = props.frequency[0] === 'quarter' ? 'active frequency quarter' : 'frequency quarter'
@@ -14,7 +16,8 @@ let ComparisonFrequency = (props) => {
                 <p className='divider'>|</p>
                 <p className={quarterClass} onClick={() => props.handleFrequencyClick(['quarter', 91])}>quarter</p>
                 <p className='divider'>|</p>
-                <p className={yearClass} onClick={() => props.handleFrequencyClick(['year', 365])}>year</p> 
+                <p className={yearClass} onClick={() => props.handleFrequencyClick(['year', 365])}>year</p>
+                <Refresh fetchData={props.fetchData} setFetching={props.setFetching}/>
             </div>
         </div>
     )

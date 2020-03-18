@@ -31,107 +31,7 @@ const signInUser = async (setUserToken) => {
             throw err
         })
 }
-// const fetchComparisonData = (token, setComparisonMetrics, frequency, setFetching, prevFrequency) => {
-//     let compDate = moment().subtract(frequency, 'days').format('YYYY-MM-DD')
-//     axios.post("https://api-dev.newstory.io/graphql", 
-//     {
-//         query: `
-//             query {users(lastSyncedAt:"${compDate}"){
-//                 uuid
-//                 username
-//                 firstName
-//                 lastName
-//                 createdAt
-//                 }
-//                 organizations(lastSyncedAt:"${compDate}"){
-//                     uuid
-//                     name
-//                 }
-//                 recipients(lastSyncedAt:"${compDate}"){
-//                     uuid
-//                     name
-//                     createdAt
-//                     updatedAt
-//                 }
-//                 submissions(lastSyncedAt:"${compDate}"){
-//                     uuid
-//                     surveyor {
-//                         firstName
-//                         lastName
-//                         username
-//                     }
-//                     createdAt 
-//                 }
-//             }
-//         `
-//     },
-//     {
-//         headers: {
-//         "Authorization": token,
-//         "X-Api-Key": "54125abed83236f363b8330eefe6f4e3",
-//         'Content-Type': 'application/json'
-//         }
-//     })
-//     .then(res => {
-//         console.log('COMP DATA ', res.data.data)
-//         setComparisonMetrics(res.data.data)
-//         // if ( frequency !== prevFrequency ) setFetching(false)
-//     })
-//     .catch(err => {
-//         throw err
-//     })
-// }
-// const fetchPreviousComparisonData = (token, setComparisonMetrics, frequency, setFetching, prevFrequency) => {
-//     let prevFreq = frequency * 2
-//     let compDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
-//     axios.post("https://api-dev.newstory.io/graphql", 
-//     {
-//         query: `
-//             query {users(lastSyncedAt:"${compDate}"){
-//                 uuid
-//                 username
-//                 firstName
-//                 lastName
-//                 createdAt
-//                 }
-//                 organizations(lastSyncedAt:"${compDate}"){
-//                     uuid
-//                     name
-//                 }
-//                 recipients(lastSyncedAt:"${compDate}"){
-//                     uuid
-//                     name
-//                     createdAt
-//                     updatedAt
-//                 }
-//                 submissions(lastSyncedAt:"${compDate}"){
-//                     uuid
-//                     surveyor {
-//                         firstName
-//                         lastName
-//                         username
-//                     }
-//                     createdAt 
-//                 }
-//             }
-//         `
-//     },
-//     {
-//         headers: {
-//         "Authorization": token,
-//         "X-Api-Key": "54125abed83236f363b8330eefe6f4e3",
-//         'Content-Type': 'application/json'
-//         }
-//     })
-//     .then(res => {
-//         console.log('PrevCOMP DATA ', res.data.data)
-//         setComparisonMetrics(res.data.data)
-//         if ( frequency !== prevFrequency ) setFetching(false)
-//     })
-//     .catch(err => {
-//         throw err
-//     })
-// }
+
 const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching) => {
     axios.post("https://api-dev.newstory.io/graphql", 
     {
@@ -182,37 +82,6 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
         console.log('CUR DATA ',res.data.data)
         // setting current data
         setCurrentMetrics(res.data.data)
-
-    //     // setting comparison data based on set frequency
-    //     console.log('FREQUENCY', frequency)
-    //     let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
-    //     let filteredCompData = {}
-    //     Object.keys(res.data.data).forEach(category => {
-    //         console.log('CATEGORY', category)
-    //         let result  = res.data.data[category].filter(item => {
-    //             let endex = item.createdAt.indexOf('T')
-    //             let createdAt = item.createdAt.substring(0, endex)
-    //             return createdAt < compDate
-    //         })
-    //         filteredCompData[category] = result
-    //     })
-    //     console.log('FILTERED', filteredCompData)
-    //     setComparisonMetrics(filteredCompData)
-
-    //     // setting previous comparison data based on set frequency to determine 'new' users/orgs rate.
-    //     let prevFreq = frequency[1] * 2
-    //     let prevCompDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
-    //     let filteredPrevCompData = {}
-    //     Object.keys(res.data.data).forEach(category => {
-    //         console.log('CATEGORY', category)
-    //         let result  = res.data.data[category].filter(item => {
-    //             let endex = item.createdAt.indexOf('T')
-    //             let createdAt = item.createdAt.substring(0, endex)
-    //             return createdAt < prevCompDate
-    //         })
-    //         filteredPrevCompData[category] = result
-    //     })
-    //     setPreviousComparisonMetrics(filteredPrevCompData)
         setCompData(res.data.data, frequency, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals)
         setFetching(false)
     })
@@ -236,7 +105,6 @@ const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics, setPre
     setCompMetrics(filteredCompData)
 
     // setting previous comparison data based on set frequency to determine 'new' users/orgs rate.
-
     let prevFreq = frequency[1] * 2
     let prevCompDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
     let filteredPrevCompData = {}
@@ -250,6 +118,7 @@ const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics, setPre
     })
     setPrevCompMetrics(filteredPrevCompData)
 
+    // setting previous period totals for comparison to current period total
     let previousPeriodTotals = {}
     Object.keys(data).forEach(category => {
         let result  = data[category].filter(item => {
@@ -265,7 +134,5 @@ const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics, setPre
 export default {
     signInUser,
     setCompData,
-    // fetchComparisonData,
-    // fetchPreviousComparisonData,
-    fetchData
+    fetchData,
 }

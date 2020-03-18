@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment'
 
 import query from '../../Utils/query'
@@ -20,30 +20,20 @@ let Dashboard = () => {
     const [userToken, setUserToken] = useState(null)
     const [fetching, setFetching] = useState(true)
     // const [selectedMetric, setSelectedMetric] = useState(null)
-
-    // const frequencyRef = useRef()
     
     useEffect(() => {
         query.signInUser(setUserToken)
     }, [])
 
-    // useEffect(() => {
-    //     frequencyRef.current = frequency
-    // })
-
-    // const prevFrequency = frequencyRef.current
-
     useEffect(() => {
         if(userToken){
-            // query.fetchComparisonData(userToken, setComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
-            // query.fetchPreviousComparisonData(userToken, setPreviousComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
             query.setCompData(currentMetrics, frequency, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals)
         }
     }, [userToken, frequency])
     
     useEffect(() => {
         if(userToken){
-            query.fetchData(userToken, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching)
+            handleFetchData()
         }
     }, [userToken])
     
@@ -60,13 +50,18 @@ let Dashboard = () => {
 
     const handleFrequencyClick = (freq) => {
         if (freq[1] !== frequency[1]){
-            // setFetching(true)
             setFrequency(freq)
         }
     }
     const handleRefresh = () => {
         setRefresh(!refresh)
     }
+
+    const handleFetchData = () => {
+        query.fetchData(userToken, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching)
+    }
+
+    // builds out data structure to compare current to previous periods
     const nsData = {}
     let currentActiveUsers = []
     let prevActiveUsers = []
@@ -168,7 +163,7 @@ let Dashboard = () => {
             <div className='logo-container'>
                 <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png' onClick={handleRefresh}/>
             </div>
-            <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency}/>
+            <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency} fetchData={handleFetchData} setFetching={setFetching}/>
             <div className='title-display'>
                 <p className='titles' id='title-metric'><b>Metric</b></p>
                 <p className='titles' id='title-value'><b>Value</b></p>
