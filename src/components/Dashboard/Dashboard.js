@@ -157,43 +157,67 @@ let Dashboard = () => {
         setRefresh(!refresh)
     }
     const nsData = {}
+    let currentActiveUsers = []
+    let prevActiveUsers = []
+    let currentActiveOrgs = []
+    let prevActiveOrgs = []
     Object.keys(currentMetrics).forEach(m => {
         let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
         let prevDate = moment().subtract((frequency[1] * 2), 'days').format('YYYY-MM-DD')
+        console.log('COMP', compDate)
+        console.log('PREV', prevDate)
 
-        let currentActiveUsers = m === 'users' ? currentMetrics[m].filter(active => {
-            return active.lastSignInAt > compDate
-        }) : null
-        console.log('currentActiveUsers', currentActiveUsers)
+        if (m === 'users') {
+            currentActiveUsers = currentMetrics[m].filter(active => {
+                let endex = active.lastSignInAt ? active.lastSignInAt.indexOf('T') : null
+                let lastSignIn = active.lastSignInAt ? active.lastSignInAt.substring(0, endex) : null
+                return lastSignIn > compDate
+            })
+            prevActiveUsers = currentMetrics[m].filter(active => {
+                let endex = active.lastSignInAt ? active.lastSignInAt.indexOf('T') : null
+                let lastSignIn = active.lastSignInAt ? active.lastSignInAt.substring(0, endex) : null
+                return lastSignIn > prevDate && lastSignIn < compDate
+            })
+        }
+
         
-        let currentActiveOrgs = m === 'organizations' ? currentMetrics[m].map(org => {
-            console.log('ORG', org)
-            let activeUsers = org.users.filter(user => {
-                return user.lastSignInAt > compDate
+        if (m === 'organizations') {
+            currentActiveOrgs = currentMetrics[m].map(org => {
+                let activeUsers = org.users.filter(user => {
+                    let endex = user.lastSignInAt ? user.lastSignInAt.indexOf('T') : null
+                    let lastSignIn = user.lastSignInAt ? user.lastSignInAt.substring(0, endex) : null
+                    if (lastSignIn <= compDate) return false
+                    return lastSignIn > compDate
+                })
+                return activeUsers
+            }).filter (org => {
+                return org.length >= 1
             })
-            return activeUsers
-        }) : null
+
+            prevActiveOrgs = currentMetrics[m].map(org => {
+                let activeUsers = org.users.filter(user => {
+                    let endex = user.lastSignInAt ? user.lastSignInAt.indexOf('T') : null
+                    let lastSignIn = user.lastSignInAt ? user.lastSignInAt.substring(0, endex) : null
+                    return lastSignIn > prevDate && lastSignIn < compDate
+                })
+                return activeUsers
+            }).filter (org => {
+                return org.length >= 1
+            })
+        }
+
+        console.log('prevActiveUsers', prevActiveUsers)
+        console.log('currentActiveUsers', currentActiveUsers)
+
+        console.log('prevActiveOrgs', prevActiveOrgs)
         console.log('currentActiveOrgs', currentActiveOrgs)
-
-        let prevActiveUsers = m === 'users' ? currentMetrics[m].filter(active => {
-            return active.lastSignInAt > prevDate
-        }) : null
-        let prevActiveOrgs = m === 'organizations' ? currentMetrics[m].map(org => {
-            console.log('ORG', org)
-            let activeUsers = org.users.filter(user => {
-                return user.lastSignInAt > prevDate
-            })
-            return activeUsers
-        }) : null
-
-
 
         nsData[m] = comparisonMetrics[m] && previousComparisonMetrics[m] ? 
         m === 'organizations' || m === 'users' ? 
         {
             active: {
                 current: m === 'organizations' ? currentActiveOrgs.length : currentActiveUsers.length,
-                comparison: m === 'organizations' ? prevActiveOrgs.length -currentActiveOrgs.length : prevActiveUsers.length -currentActiveUsers.length
+                comparison: m === 'organizations' ? prevActiveOrgs.length : prevActiveUsers.length
             },
             new: {
                 current: currentMetrics[m].length - comparisonMetrics[m].length,
