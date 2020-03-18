@@ -11,104 +11,15 @@ import Key from '../Key/Key'
 import Spinner from '../Spinner/Spinner'
 
 let Dashboard = () => {
+    const [currentMetrics, setCurrentMetrics] = useState([])
     const [comparisonMetrics, setComparisonMetrics] = useState([])
     const [previousComparisonMetrics, setPreviousComparisonMetrics] = useState([])
-    const [currentMetrics, setCurrentMetrics] = useState([])
+    const [previousPeriodTotals, setPreviousPeriodTotals] = useState([])
     const [frequency, setFrequency] = useState(['month', 30])
     const [refresh, setRefresh] = useState(true)
     const [userToken, setUserToken] = useState(null)
     const [fetching, setFetching] = useState(true)
     // const [selectedMetric, setSelectedMetric] = useState(null)
-    let nsMetrics = {
-        users: {
-            active: {
-                currentMonth: 39,
-                currentQuarter: 55,
-                currentYear: 92,
-                lastMonth: 39,
-                lastQuarter: 50,
-                lastYear: 90,
-            },
-            new: {
-                currentMonth: 8,
-                currentQuarter: 20,
-                currentYear: 100,
-                lastMonth: 6,
-                lastQuarter: 12,
-                lastYear: 40,
-            },
-            total: {
-                currentMonth: 812,
-                currentQuarter: 812,
-                currentYear: 812,
-                lastMonth: 804,
-                lastQuarter: 792,
-                lastYear: 712,
-            },
-        },
-        organizations: {
-            active: {
-                currentMonth: 39,
-                currentQuarter: 55,
-                currentYear: 92,
-                lastMonth: 32,
-                lastQuarter: 50,
-                lastYear: 90,
-            },
-            new: {
-                currentMonth: 8,
-                currentQuarter: 20,
-                currentYear: 100,
-                lastMonth: 6,
-                lastQuarter: 12,
-                lastYear: 40,
-            },
-            total: {
-                currentMonth: 812,
-                currentQuarter: 812,
-                currentYear: 812,
-                lastMonth: 804,
-                lastQuarter: 792,
-                lastYear: 712,
-            },
-        },
-        recipients: {
-            new: {
-                currentMonth: 3,
-                currentQuarter: 4,
-                currentYear: 5,
-                lastMonth: 1,
-                lastQuarter: 0,
-                lastYear: 7,
-            },
-            total: {
-                currentMonth: 483,
-                currentQuarter: 483,
-                currentYear: 483,
-                lastMonth: 480,
-                lastQuarter: 479,
-                lastYear: 478,
-            },
-        },
-        submissions: {
-            new: {
-                currentMonth: 3,
-                currentQuarter: 4,
-                currentYear: 5,
-                lastMonth: 1,
-                lastQuarter: 0,
-                lastYear: 7,
-            },
-            total: {
-                currentMonth: 483,
-                currentQuarter: 483,
-                currentYear: 483,
-                lastMonth: 480,
-                lastQuarter: 479,
-                lastYear: 478,
-            },
-        },
-    }
 
     // const frequencyRef = useRef()
     
@@ -126,13 +37,13 @@ let Dashboard = () => {
         if(userToken){
             // query.fetchComparisonData(userToken, setComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
             // query.fetchPreviousComparisonData(userToken, setPreviousComparisonMetrics, frequency[1], setFetching, prevFrequency[1])
-            query.setCompData(currentMetrics, frequency, setComparisonMetrics, setPreviousComparisonMetrics)
+            query.setCompData(currentMetrics, frequency, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals)
         }
     }, [userToken, frequency])
     
     useEffect(() => {
         if(userToken){
-            query.fetchData(userToken, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setFetching)
+            query.fetchData(userToken, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching)
         }
     }, [userToken])
     
@@ -164,8 +75,6 @@ let Dashboard = () => {
     Object.keys(currentMetrics).forEach(m => {
         let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
         let prevDate = moment().subtract((frequency[1] * 2), 'days').format('YYYY-MM-DD')
-        console.log('COMP', compDate)
-        console.log('PREV', prevDate)
 
         if (m === 'users') {
             currentActiveUsers = currentMetrics[m].filter(active => {
@@ -180,7 +89,6 @@ let Dashboard = () => {
             })
         }
 
-        
         if (m === 'organizations') {
             currentActiveOrgs = currentMetrics[m].map(org => {
                 let activeUsers = org.users.filter(user => {
@@ -206,13 +114,7 @@ let Dashboard = () => {
             })
         }
 
-        console.log('prevActiveUsers', prevActiveUsers)
-        console.log('currentActiveUsers', currentActiveUsers)
-
-        console.log('prevActiveOrgs', prevActiveOrgs)
-        console.log('currentActiveOrgs', currentActiveOrgs)
-
-        nsData[m] = comparisonMetrics[m] && previousComparisonMetrics[m] ? 
+        nsData[m] = comparisonMetrics[m] && previousComparisonMetrics[m] && previousPeriodTotals[m] ? 
         m === 'organizations' || m === 'users' ? 
         {
             active: {
@@ -220,23 +122,23 @@ let Dashboard = () => {
                 comparison: m === 'organizations' ? prevActiveOrgs.length : prevActiveUsers.length
             },
             new: {
-                current: currentMetrics[m].length - comparisonMetrics[m].length,
-                comparison: comparisonMetrics[m].length - previousComparisonMetrics[m].length
+                current: comparisonMetrics[m].length,
+                comparison: previousComparisonMetrics[m].length
             },
             total: {
                 current: currentMetrics[m].length,
-                comparison: comparisonMetrics[m].length
+                comparison: previousPeriodTotals[m].length
             },
         } 
         :
         {
             new: {
-                current: currentMetrics[m].length - comparisonMetrics[m].length,
-                comparison: comparisonMetrics[m].length - previousComparisonMetrics[m].length
+                current: comparisonMetrics[m].length,
+                comparison: previousComparisonMetrics[m].length
             },
             total: {
                 current: currentMetrics[m].length,
-                comparison: comparisonMetrics[m].length
+                comparison: previousPeriodTotals[m].length
             },
         }
         

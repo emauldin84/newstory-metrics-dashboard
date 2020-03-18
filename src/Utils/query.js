@@ -132,7 +132,7 @@ const signInUser = async (setUserToken) => {
 //         throw err
 //     })
 // }
-const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setFetching) => {
+const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching) => {
     axios.post("https://api-dev.newstory.io/graphql", 
     {
         query: `
@@ -213,7 +213,7 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
     //         filteredPrevCompData[category] = result
     //     })
     //     setPreviousComparisonMetrics(filteredPrevCompData)
-        setCompData(res.data.data, frequency, setComparisonMetrics, setPreviousComparisonMetrics)
+        setCompData(res.data.data, frequency, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals)
         setFetching(false)
     })
     .catch(err => {
@@ -221,7 +221,7 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
     })
 }
 
-const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics) => {
+const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics, setPrevPeriodTotals) => {
     // setting comparison data based on set frequency
     let compDate = moment().subtract(frequency[1], 'days').format('YYYY-MM-DD')
     let filteredCompData = {}
@@ -236,6 +236,7 @@ const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics) => {
     setCompMetrics(filteredCompData)
 
     // setting previous comparison data based on set frequency to determine 'new' users/orgs rate.
+
     let prevFreq = frequency[1] * 2
     let prevCompDate = moment().subtract(prevFreq, 'days').format('YYYY-MM-DD')
     let filteredPrevCompData = {}
@@ -243,11 +244,22 @@ const setCompData = (data, frequency, setCompMetrics, setPrevCompMetrics) => {
         let result  = data[category].filter(item => {
             let endex = item.createdAt.indexOf('T')
             let createdAt = item.createdAt.substring(0, endex)
-            return createdAt > prevCompDate
+            return createdAt > prevCompDate && createdAt < compDate
         })
         filteredPrevCompData[category] = result
     })
     setPrevCompMetrics(filteredPrevCompData)
+
+    let previousPeriodTotals = {}
+    Object.keys(data).forEach(category => {
+        let result  = data[category].filter(item => {
+            let endex = item.createdAt.indexOf('T')
+            let createdAt = item.createdAt.substring(0, endex)
+            return createdAt < compDate
+        })
+        previousPeriodTotals[category] = result
+    })
+    setPrevPeriodTotals(previousPeriodTotals)
 }
 
 export default {
