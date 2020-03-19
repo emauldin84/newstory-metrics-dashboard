@@ -1,0 +1,11 @@
+.refresh:hover{
+    cursor: pointer;
+    color: #4A4A4A;
+}
+
+.refresh{
+    color: #00BAE0;
+    align-self: center;
+    margin-right: 10px;
+    font-size: calc(10px + 2vmin)
+}

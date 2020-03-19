@@ -6,7 +6,7 @@ let App = () => {
 
   return (
     <div className="App">
-      <Dashboard />
+        <Dashboard />
     </div>
   );
 }
