@@ -6,6 +6,8 @@ const Refresh = (props) => {
 
     const handleRefreshClick = () => {
         props.setFetching(true)
+        props.setProgressWidth(1)
+        props.setProgressText('...Fetching')
         props.fetchData()
     }
     return (

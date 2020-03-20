@@ -60,6 +60,7 @@
 
 .loader-backdrop{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -74,4 +75,18 @@
   color: #00bae0;
   margin-top: 100px;
   margin-left: calc(-20px - 3vmin);
+}
+
+.progress-bar {
+  width: 90%;
+  height: 20px;
+  border: 1px solid #00bae0;
+}
+
+.progress{
+  background-color: #00bae0;
+  height: 20px;
+}
+.progress-text{
+  color: #00bae0;
 }

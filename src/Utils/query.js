@@ -24,7 +24,7 @@ const signInUser = async (setUserToken) => {
             }
         })
         .then(res => {
-            console.log(res)
+            // console.log(res)
             setUserToken(res.data.data.signInUser.token)
         })
         .catch(err => {
@@ -32,7 +32,11 @@ const signInUser = async (setUserToken) => {
         })
 }
 
-const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching) => {
+
+const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching, setProgressWidth, progressWidth, setProgressText) => {
+    let timer = setInterval(() => {
+            setProgressWidth(progressWidth += .5)
+    }, 50)
     axios.post("https://api-dev.newstory.io/graphql", 
     {
         query: `
@@ -99,11 +103,17 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
         }
     })
     .then(res => {
-        console.log('CUR DATA ',res.data.data)
+        // console.log('CUR DATA ',res.data.data)
         // setting current data
+        setProgressWidth(100)
+        setProgressText('Done!')
+        clearInterval(timer)
         setCurrentMetrics(res.data.data)
         setCompData(res.data.data, frequency, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals)
-        setFetching(false)
+        setTimeout(() => {
+            setFetching(false)
+            setProgressWidth(1)
+        }, 700)
     })
     .catch(err => {
         throw err

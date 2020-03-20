@@ -9,6 +9,7 @@ import ComparisonFrequency from '../ComparisonFrequency/ComparisonFrequency'
 // import Modal from '../Modal/Modal'
 import Key from '../Key/Key'
 import Spinner from '../Spinner/Spinner'
+import Refresh from '../Refresh/Refresh'
 
 let Dashboard = () => {
     const [currentMetrics, setCurrentMetrics] = useState([])
@@ -16,9 +17,10 @@ let Dashboard = () => {
     const [previousComparisonMetrics, setPreviousComparisonMetrics] = useState([])
     const [previousPeriodTotals, setPreviousPeriodTotals] = useState([])
     const [frequency, setFrequency] = useState(['month', 30])
-    const [refresh, setRefresh] = useState(true)
     const [userToken, setUserToken] = useState(null)
     const [fetching, setFetching] = useState(true)
+    const [progressWidth, setProgressWidth] = useState(1)
+    const [progressText, setProgressText] = useState('...Fetching')
     // const [selectedMetric, setSelectedMetric] = useState(null)
     
     useEffect(() => {
@@ -53,12 +55,9 @@ let Dashboard = () => {
             setFrequency(freq)
         }
     }
-    const handleRefresh = () => {
-        setRefresh(!refresh)
-    }
 
     const handleFetchData = () => {
-        query.fetchData(userToken, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching)
+        query.fetchData(userToken, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching, setProgressWidth, progressWidth, setProgressText)
     }
 
     // builds out data structure to compare current to previous periods
@@ -108,8 +107,6 @@ let Dashboard = () => {
                     let updatedAt = task.updatedAt ? task.updatedAt.substring(0, updatedAtEndex) : null
                     return (createdAt > prevDate && createdAt < compDate) || (updatedAt > prevDate && createdAt < compDate)
                 })
-                console.log('currentUser COMMENTS', comments)
-                console.log('currentUser TASKS', createdTasks)
                 return (lastSignIn > prevDate && lastSignIn < compDate) || comments.length > 0 || createdTasks.length > 0
             })
         }
@@ -254,7 +251,7 @@ let Dashboard = () => {
     })
 
     // let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
-    let dashDisplay = fetching ? <Spinner /> : 
+    let dashDisplay = fetching ? <Spinner progressWidth={progressWidth} progressText={progressText}/> : 
     <div>
         {metricsDisplay}
         <Key />
@@ -262,10 +259,14 @@ let Dashboard = () => {
 
     return (
         <div className="dashboard-container" >
-            <div className='logo-container'>
-                <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png' onClick={handleRefresh}/>
+            <div className='logo-refresh-container'>
+                <div className='logo-container'>
+                    <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png'/>
+                </div>
+                <Refresh fetchData={handleFetchData} setFetching={setFetching} setProgressWidth={setProgressWidth} setProgressText={setProgressText}/>
             </div>
             <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency} fetchData={handleFetchData} setFetching={setFetching}/>
+            
             <div className='title-display'>
                 <p className='titles' id='title-metric'><b>Metric</b></p>
                 <p className='titles' id='title-value'><b>Value</b></p>

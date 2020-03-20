@@ -1,3 +1,7 @@
+.logo-refresh-container {
+    display: flex;
+}
+
 .dashboard-container {
     width: 95%;
     min-height: 100%;
