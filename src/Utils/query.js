@@ -36,39 +36,59 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
     axios.post("https://api-dev.newstory.io/graphql", 
     {
         query: `
-            query {
-                users {
-                    uuid
-                    username
-                    createdAt
-                    lastSignInAt
-                    }
-                organizations{
-                    uuid
-                    name
-                    createdAt
-                    users {
-                        uuid
-                    username
-                        lastSignInAt
-                        }
-                    }
-                recipients{
-                    uuid
-                    name
+        query {
+            users {
+                uuid
+                username
+                createdAt
+                lastSignInAt
+                comments {
                     createdAt
                     updatedAt
                 }
-                submissions {
-                    uuid
-                    surveyor {
-                        firstName
-                        lastName
-                        username
-                    }
-                    createdAt 
+                createdTasks {
+                    createdAt
+                    updatedAt
                 }
             }
+            organizations{
+                name
+                createdAt
+                users {
+                    uuid
+                    username
+                    lastSignInAt
+                }
+                comments {
+                    createdAt
+                    updatedAt
+                }
+                questions {
+                    createdAt
+                    updatedAt
+                }
+                surveys {
+                    createdAt
+                    updatedAt
+                    changedAt
+                }
+                tasks{
+                    createdAt
+                    updatedAt
+                    completedAt
+                    }
+            }
+            recipients{
+                uuid
+                name
+                createdAt
+                updatedAt
+            }
+            submissions {
+                uuid
+                createdAt 
+            }
+        }
         `
     },
     {
