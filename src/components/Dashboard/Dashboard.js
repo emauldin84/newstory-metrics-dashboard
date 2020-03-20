@@ -75,12 +75,42 @@ let Dashboard = () => {
             currentActiveUsers = currentMetrics[m].filter(user => {
                 let endex = user.lastSignInAt ? user.lastSignInAt.indexOf('T') : null
                 let lastSignIn = user.lastSignInAt ? user.lastSignInAt.substring(0, endex) : null
-                return lastSignIn > compDate
+                let comments = user.comments.filter(comment => {
+                    let createdAtEndex = comment.createdAt ? comment.createdAt.indexOf('T') : null
+                    let createdAt = comment.createdAt ? comment.createdAt.substring(0, createdAtEndex) : null
+                    let updatedAtEndex = comment.updatedAt ? comment.updatedAt.indexOf('T') : null
+                    let updatedAt = comment.updatedAt ? comment.updatedAt.substring(0, updatedAtEndex) : null
+                    return createdAt > compDate || updatedAt > compDate
+                })
+                let createdTasks = user.createdTasks.filter(task => {
+                    let createdAtEndex = task.createdAt ? task.createdAt.indexOf('T') : null
+                    let createdAt = task.createdAt ? task.createdAt.substring(0, createdAtEndex) : null
+                    let updatedAtEndex = task.updatedAt ? task.updatedAt.indexOf('T') : null
+                    let updatedAt = task.updatedAt ? task.updatedAt.substring(0, updatedAtEndex) : null
+                    return createdAt > compDate || updatedAt > compDate
+                })
+                return lastSignIn > compDate || comments.length > 0 || createdTasks.length > 0
             })
-            prevActiveUsers = currentMetrics[m].filter(active => {
-                let endex = active.lastSignInAt ? active.lastSignInAt.indexOf('T') : null
-                let lastSignIn = active.lastSignInAt ? active.lastSignInAt.substring(0, endex) : null
-                return lastSignIn > prevDate && lastSignIn < compDate
+            prevActiveUsers = currentMetrics[m].filter(user => {
+                let endex = user.lastSignInAt ? user.lastSignInAt.indexOf('T') : null
+                let lastSignIn = user.lastSignInAt ? user.lastSignInAt.substring(0, endex) : null
+                let comments = user.comments.filter(comment => {
+                    let createdAtEndex = comment.createdAt ? comment.createdAt.indexOf('T') : null
+                    let createdAt = comment.createdAt ? comment.createdAt.substring(0, createdAtEndex) : null
+                    let updatedAtEndex = comment.updatedAt ? comment.updatedAt.indexOf('T') : null
+                    let updatedAt = comment.updatedAt ? comment.updatedAt.substring(0, updatedAtEndex) : null
+                    return (createdAt > prevDate && createdAt < compDate) || (updatedAt > prevDate && createdAt < compDate)
+                })
+                let createdTasks = user.createdTasks.filter(task => {
+                    let createdAtEndex = task.createdAt ? task.createdAt.indexOf('T') : null
+                    let createdAt = task.createdAt ? task.createdAt.substring(0, createdAtEndex) : null
+                    let updatedAtEndex = task.updatedAt ? task.updatedAt.indexOf('T') : null
+                    let updatedAt = task.updatedAt ? task.updatedAt.substring(0, updatedAtEndex) : null
+                    return (createdAt > prevDate && createdAt < compDate) || (updatedAt > prevDate && createdAt < compDate)
+                })
+                console.log('currentUser COMMENTS', comments)
+                console.log('currentUser TASKS', createdTasks)
+                return (lastSignIn > prevDate && lastSignIn < compDate) || comments.length > 0 || createdTasks.length > 0
             })
         }
 
