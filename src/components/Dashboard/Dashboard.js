@@ -19,8 +19,6 @@ let Dashboard = () => {
     const [frequency, setFrequency] = useState(['month', 30])
     const [userToken, setUserToken] = useState(null)
     const [fetching, setFetching] = useState(true)
-    const [progressWidth, setProgressWidth] = useState(1)
-    const [progressText, setProgressText] = useState('...Fetching')
     // const [selectedMetric, setSelectedMetric] = useState(null)
     
     useEffect(() => {
@@ -57,7 +55,7 @@ let Dashboard = () => {
     }
 
     const handleFetchData = () => {
-        query.fetchData(userToken, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching, setProgressWidth, progressWidth, setProgressText)
+        query.fetchData(userToken, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching)
     }
 
     // builds out data structure to compare current to previous periods
@@ -251,7 +249,7 @@ let Dashboard = () => {
     })
 
     // let modal = selectedMetric ? <Modal selectedMetric={selectedMetric} handleBackgroundClick={handleBackgroundClick}/> : null
-    let dashDisplay = fetching ? <Spinner progressWidth={progressWidth} progressText={progressText}/> : 
+    let dashDisplay = fetching ? <Spinner/> : 
     <div>
         {metricsDisplay}
         <Key />
@@ -261,11 +259,11 @@ let Dashboard = () => {
         <div className="dashboard-container" >
             <div className='logo-refresh-container'>
                 <div className='logo-container'>
-                    <img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png'/>
+                    <a href='https://newstorycharity.org/' target="_blank"><img className='logo' alt='New Story Logo' src='https://360kk73nf60j1amgkj11crnq-wpengine.netdna-ssl.com/wp-content/themes/newstory/src/img/logo.png'/></a>
                 </div>
-                <Refresh fetchData={handleFetchData} setFetching={setFetching} setProgressWidth={setProgressWidth} setProgressText={setProgressText}/>
+                <Refresh fetchData={handleFetchData} setFetching={setFetching}/>
             </div>
-            <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency} fetchData={handleFetchData} setFetching={setFetching}/>
+            <ComparisonFrequency handleFrequencyClick={handleFrequencyClick} frequency={frequency}/>
             
             <div className='title-display'>
                 <p className='titles' id='title-metric'><b>Metric</b></p>

@@ -3,7 +3,7 @@ import React from 'react'
 import './Metric.css'
 
 let Metric = (props) => {
-    console.log(props.metrics, 'metricsData', props.metricsData)
+    // console.log(props.metrics, 'metricsData', props.metricsData)
     let metricsDataDisplay = Object.keys(props.metricsData).map(key => {
         let currentValue = props.metricsData[key].current
         let pastValue = Math.abs(props.metricsData[key].comparison)
