@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/newstory-metrics-dashboard/precache-manifest.835b6a952b8ea59d8a5a3b6a2989e8d8.js"
+  "/newstory-metrics-dashboard/precache-manifest.305bfd89137714aca4ccf25395a77076.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/newstory-metrics-dashboard/static/css/main.cdb89488.chunk.css",
-    "main.js": "/newstory-metrics-dashboard/static/js/main.fdb52f56.chunk.js",
-    "main.js.map": "/newstory-metrics-dashboard/static/js/main.fdb52f56.chunk.js.map",
+    "main.js": "/newstory-metrics-dashboard/static/js/main.64fd8e6f.chunk.js",
+    "main.js.map": "/newstory-metrics-dashboard/static/js/main.64fd8e6f.chunk.js.map",
     "runtime-main.js": "/newstory-metrics-dashboard/static/js/runtime-main.e845322e.js",
     "runtime-main.js.map": "/newstory-metrics-dashboard/static/js/runtime-main.e845322e.js.map",
     "static/js/2.fdefde57.chunk.js": "/newstory-metrics-dashboard/static/js/2.fdefde57.chunk.js",
     "static/js/2.fdefde57.chunk.js.map": "/newstory-metrics-dashboard/static/js/2.fdefde57.chunk.js.map",
     "index.html": "/newstory-metrics-dashboard/index.html",
-    "precache-manifest.835b6a952b8ea59d8a5a3b6a2989e8d8.js": "/newstory-metrics-dashboard/precache-manifest.835b6a952b8ea59d8a5a3b6a2989e8d8.js",
+    "precache-manifest.305bfd89137714aca4ccf25395a77076.js": "/newstory-metrics-dashboard/precache-manifest.305bfd89137714aca4ccf25395a77076.js",
     "service-worker.js": "/newstory-metrics-dashboard/service-worker.js",
     "static/css/main.cdb89488.chunk.css.map": "/newstory-metrics-dashboard/static/css/main.cdb89488.chunk.css.map",
     "static/js/2.fdefde57.chunk.js.LICENSE.txt": "/newstory-metrics-dashboard/static/js/2.fdefde57.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.e845322e.js",
     "static/js/2.fdefde57.chunk.js",
     "static/css/main.cdb89488.chunk.css",
-    "static/js/main.fdb52f56.chunk.js"
+    "static/js/main.64fd8e6f.chunk.js"
   ]
 }
