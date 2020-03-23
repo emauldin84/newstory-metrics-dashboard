@@ -237,11 +237,11 @@ let Dashboard = () => {
         : null
 
     })
-    let metricsDisplay = Object.keys(nsData).map(cM => {
+    let metricsDisplay = Object.keys(nsData).map(categoryMetrics => {
         return <Metric 
-                    key={cM} 
-                    metrics={cM}
-                    metricsData={nsData[cM]}
+                    key={categoryMetrics} 
+                    metrics={categoryMetrics}
+                    metricsData={nsData[categoryMetrics]}
                     frequency={frequency}
                     // selectedMetric={selectedMetric} 
                     // handleMetricClick={handleMetricClick}
