@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/newstory-metrics-dashboard/static/css/main.cdb89488.chunk.css",
+    "main.css": "/newstory-metrics-dashboard/static/css/main.292749f8.chunk.css",
     "main.js": "/newstory-metrics-dashboard/static/js/main.64fd8e6f.chunk.js",
     "main.js.map": "/newstory-metrics-dashboard/static/js/main.64fd8e6f.chunk.js.map",
     "runtime-main.js": "/newstory-metrics-dashboard/static/js/runtime-main.e845322e.js",
@@ -8,15 +8,15 @@
     "static/js/2.fdefde57.chunk.js": "/newstory-metrics-dashboard/static/js/2.fdefde57.chunk.js",
     "static/js/2.fdefde57.chunk.js.map": "/newstory-metrics-dashboard/static/js/2.fdefde57.chunk.js.map",
     "index.html": "/newstory-metrics-dashboard/index.html",
-    "precache-manifest.305bfd89137714aca4ccf25395a77076.js": "/newstory-metrics-dashboard/precache-manifest.305bfd89137714aca4ccf25395a77076.js",
+    "precache-manifest.87ab1851786d86fc402b6833195835e5.js": "/newstory-metrics-dashboard/precache-manifest.87ab1851786d86fc402b6833195835e5.js",
     "service-worker.js": "/newstory-metrics-dashboard/service-worker.js",
-    "static/css/main.cdb89488.chunk.css.map": "/newstory-metrics-dashboard/static/css/main.cdb89488.chunk.css.map",
+    "static/css/main.292749f8.chunk.css.map": "/newstory-metrics-dashboard/static/css/main.292749f8.chunk.css.map",
     "static/js/2.fdefde57.chunk.js.LICENSE.txt": "/newstory-metrics-dashboard/static/js/2.fdefde57.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e845322e.js",
     "static/js/2.fdefde57.chunk.js",
-    "static/css/main.cdb89488.chunk.css",
+    "static/css/main.292749f8.chunk.css",
     "static/js/main.64fd8e6f.chunk.js"
   ]
 }
