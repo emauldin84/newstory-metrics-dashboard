@@ -1,6 +1,5 @@
 {
   "name": "new-story-metrics-dashboard",
-  "homepage": "https://emauldin84.github.io/newstory-metrics-dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
