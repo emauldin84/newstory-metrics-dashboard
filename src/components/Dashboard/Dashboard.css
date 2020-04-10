@@ -1,3 +1,7 @@
+.logo-refresh-container {
+    display: flex;
+}
+
 .dashboard-container {
     width: 95%;
     min-height: 100%;
@@ -38,6 +42,6 @@
     width: auto;
     align-self: flex-start;
 }
-.logo:hover {
+/* .logo:hover {
     cursor: pointer;
-}
+} */

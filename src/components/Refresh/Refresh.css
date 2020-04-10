@@ -6,6 +6,14 @@
 .refresh{
     color: #00BAE0;
     align-self: center;
+    margin-top: 10px;
     margin-right: 10px;
+    margin-left: auto;
     font-size: calc(10px + 2vmin)
+}
+
+@media all and (max-width: 699px) {
+    .refresh {
+        font-size: calc(10px + 3vmin)
+    }
 }

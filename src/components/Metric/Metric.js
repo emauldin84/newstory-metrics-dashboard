@@ -3,14 +3,13 @@ import React from 'react'
 import './Metric.css'
 
 let Metric = (props) => {
-    console.log(props.metrics, 'metricsData', props.metricsData)
     let metricsDataDisplay = Object.keys(props.metricsData).map(key => {
         let currentValue = props.metricsData[key].current
         let pastValue = Math.abs(props.metricsData[key].comparison)
-        let comparison = currentValue - pastValue
-        let compClass = comparison > 0 ? 'comparison positive' : comparison < 0 ? 'comparison negative' : 'comparison'
-        let compArrow = comparison > 0 ? '↑' : comparison < 0 ? '↓' : null
-        let compPerc = ((Math.abs(comparison) / Math.abs(pastValue)) * 100).toFixed(2)
+        let difference = currentValue - pastValue
+        let compClass = difference > 0 ? 'comparison positive' : difference < 0 ? 'comparison negative' : 'comparison'
+        let compArrow = difference > 0 ? '↑' : difference < 0 ? '↓' : null
+        let compPerc = difference === 0 && pastValue === 0 ? (0).toFixed(2) : ((Math.abs(difference) / Math.abs(pastValue)) * 100).toFixed(2)
         let asterisk = Math.abs(currentValue) > 0 && pastValue === 0 ? '*' : null
 
         return  <div key={key}className='metric-inline-display'>

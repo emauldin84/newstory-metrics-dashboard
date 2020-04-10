@@ -24,7 +24,7 @@ const signInUser = async (setUserToken) => {
             }
         })
         .then(res => {
-            console.log(res)
+            // console.log(res)
             setUserToken(res.data.data.signInUser.token)
         })
         .catch(err => {
@@ -32,43 +32,64 @@ const signInUser = async (setUserToken) => {
         })
 }
 
+
 const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals, setFetching) => {
     axios.post("https://api-dev.newstory.io/graphql", 
     {
         query: `
-            query {
-                users {
-                    uuid
-                    username
-                    createdAt
-                    lastSignInAt
-                    }
-                organizations{
-                    uuid
-                    name
-                    createdAt
-                    users {
-                        uuid
-                    username
-                        lastSignInAt
-                        }
-                    }
-                recipients{
-                    uuid
-                    name
+        query {
+            users {
+                uuid
+                username
+                createdAt
+                lastSignInAt
+                comments {
                     createdAt
                     updatedAt
                 }
-                submissions {
-                    uuid
-                    surveyor {
-                        firstName
-                        lastName
-                        username
-                    }
-                    createdAt 
+                createdTasks {
+                    createdAt
+                    updatedAt
                 }
             }
+            organizations{
+                name
+                createdAt
+                users {
+                    uuid
+                    username
+                    lastSignInAt
+                }
+                comments {
+                    createdAt
+                    updatedAt
+                }
+                questions {
+                    createdAt
+                    updatedAt
+                }
+                surveys {
+                    createdAt
+                    updatedAt
+                    changedAt
+                }
+                tasks{
+                    createdAt
+                    updatedAt
+                    completedAt
+                    }
+            }
+            recipients{
+                uuid
+                name
+                createdAt
+                updatedAt
+            }
+            submissions {
+                uuid
+                createdAt 
+            }
+        }
         `
     },
     {
@@ -79,7 +100,7 @@ const fetchData = (token, frequency, setCurrentMetrics, setComparisonMetrics, se
         }
     })
     .then(res => {
-        console.log('CUR DATA ',res.data.data)
+        // console.log('CUR DATA ',res.data.data)
         // setting current data
         setCurrentMetrics(res.data.data)
         setCompData(res.data.data, frequency, setComparisonMetrics, setPreviousComparisonMetrics, setPreviousPeriodTotals)
