@@ -1,5 +1,19 @@
 .key-container{
-    text-align: right;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
     font-size: calc(1px + 2vmin);
+}
+
+.demo-container{
+    text-align: left;
     margin-right: 15px;
+    margin-left: 15px;
+}
+
+.percent-change-container{
+    align-self: right;
+    align-content: right;
+    margin-right: 15px;
+    margin-left: 15px;
 }
